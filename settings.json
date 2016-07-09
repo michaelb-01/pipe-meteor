@@ -1,0 +1,6 @@
+{
+  "electron": {
+    "name": "Pipe",
+    "autobuild": "false"
+  }
+}

@@ -1,0 +1,36 @@
+#detailsPanel {
+
+  margin: 0 20px;
+
+  #breadcrumbs {
+    font-size: 90%;
+    line-height: 28px;
+    height: 28px;
+    color: #AAA;
+    li {
+      display: inline-block;
+    }
+    li+li:before {
+      content: "  \003e   ";
+    }
+  }
+
+  .header {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .block {
+    display: inline-block;
+    vertical-align:top;
+    margin-right: 50px;
+    .header {
+      margin-bottom:20px;
+    }
+  }
+  .box {
+        width: 200px;
+    height: 200px;
+    background-color: red;
+  }
+}

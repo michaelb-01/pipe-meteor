@@ -18,9 +18,22 @@ html, body {
   font-style: normal; 
 }
 
+@font-face {
+    font-family: 'sofia_pro_condensedlight';
+    src: url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.eot');
+    src: url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.woff2') format('woff2'),
+         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.woff') format('woff'),
+         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.ttf') format('truetype'),
+         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.svg#sofia_pro_condensedlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 * {
   font-size: 0.98em;
-  font-family: 'sofia_prolight'; 
+  font-family: 'arial'; 
 }
 
 // font sizes
@@ -79,9 +92,18 @@ app {
   height: 100%;
 }
 
+job {
+  width:100%;
+}
+
 #wrapper {
   display: flex;
   flex: 1;
+}
+
+#contentWrapper {
+  width:100%;
+  margin: 0 28px;
 }
 
 .content, .contentSafe {
@@ -93,5 +115,7 @@ app {
 .contentSafe {
   padding-top:23px;
 }
+
+
 
 
