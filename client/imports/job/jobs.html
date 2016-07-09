@@ -1,0 +1,13 @@
+<div class="contentSafe">
+  <div *ngFor="let job of jobs" class="card">
+    <a [routerLink]="['/job', job._id]">
+      <div class="card-image">
+        <img src="/img/{{job.thumbUrl}}">
+        <div class="banner fadeOut">
+          <h2 class="cardTitle">{{job.client}}</h2>
+          <h5 class="cardTag">{{job.name}}</h5>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>

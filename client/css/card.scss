@@ -1,0 +1,113 @@
+.card {
+  position: relative;
+  width:31.333%;
+  max-height:400px;
+  overflow-y: scroll;
+  margin: 1%;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  &.deleted {
+    -webkit-transition: max-height 0.4s ease,
+                width 0.4s 0.4s, margin 0.4s 0.4s;
+    -moz-transition: max-height 0.4s ease,
+                width 0.4s 0.4s, margin 0.4s 0.4s;
+    -o-transition: max-height 0.4s ease,
+                width 0.4s 0.4s, margin 0.4s 0.4s;
+    transition: max-height 0.4s ease,
+                width 0.4s 0.4s, margin 0.4s 0.4s;
+
+    max-height: 0;
+    width: 0;
+    margin: 0;
+  }
+  &.selected {
+    box-shadow: 0 1px 10px 3px rgba(67, 155, 165, 0.98);
+  }
+  .card-header {
+    display: flex;
+    padding: 5px;
+    .card-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 25px;
+      padding: 5px; 
+    }
+    .card-title-group {
+
+    }
+    .card-subtitle {
+      color: #aaa;
+    }
+  }
+  .card-image {
+    position: relative;
+  }
+  .card-thumb {
+    position: relative;
+    height: 180px;
+  }
+  .card-content {
+    padding: 10px;
+  }
+  .card-footer {
+    padding: 5px;
+    border-top: 1px solid #ddd;
+    color: #bbb;
+  }
+  .card-table {
+    max-height: 100px;
+    overflow: hidden;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    .card-table-cell {
+      padding:3px;
+      border-bottom: 1px solid rgb(200,200,200);
+    }
+    .card-table-cell:last-child {
+      border: none;
+    }
+  }
+}
+
+.banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  color: white;
+  background-color: rgba(0,0,0,0.5);  // 50% opacity black
+  &.complete {
+    background-color: rgba(10,100,30,0.5);  // 50% opacity black
+  }
+  & > * {
+    text-align: center;
+  }
+}
+
+.fadeOut {
+  -moz-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  &:hover {
+    background-color: rgba(0,0,0,0);  // 0% opacity black
+  }
+}

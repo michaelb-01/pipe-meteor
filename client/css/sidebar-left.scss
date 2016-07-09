@@ -1,0 +1,200 @@
+
+$sidebarWidth: 250px;
+.sidebar {
+  position: relative;
+  width: $sidebarWidth;
+  height:100%;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  //background-color: #ddd;
+  box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  overflow: visible;
+  &.closed {
+    box-shadow: 0 0 0 0;
+    &.left {
+      margin-left: -$sidebarWidth;
+    }
+    &.right {
+      margin-right: -$sidebarWidth;
+    }
+  }
+  ul {
+    text-align: center;
+    li {
+      border-style: solid;
+      border-width: 0 0 1px 0;
+      border-color: #ddd;
+      .taskMenu {
+        display: flex;
+        position: relative;
+        height: 80px;
+        .thumb, .taskDetails, .taskTimeLeft {
+          width: 50%;
+          height: 100%;
+          //white-space: normal;
+          font-size: 14px;
+          flex-shrink: 0;
+          background-color: white;
+          overflow: hidden;
+        }
+        .taskDetails, .taskTimeLeft {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        .taskTimeLeft {
+          border-style: solid;
+          border-width: 0 0 0 1px;
+          border-color: #ddd;
+        }
+        .taskTimeLeft, img {
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+          transition: all 0.3s ease;
+        }
+      } 
+      .taskMenuExtra {
+        display: flex;
+        //justify-content: space-around;
+        flex-wrap: wrap;
+        max-height: 0px;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        * {
+          font-size: 12px;
+          padding: 0.2em;
+          margin:0;
+          flex: 1;
+          border-style: solid;
+          border-width: 0 1px 0 0;
+          border-color: #ddd;
+        }
+        & :last-child {
+          border-style: none;
+        }
+      }       
+    }
+  }
+}
+
+$burgerSize: 28px;
+$lineWidth: 2px;
+
+.burger {
+  display: block;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  z-index:999;
+  width: $burgerSize;
+  height: $burgerSize;
+  background: rgba(0,0,0,0); 
+  font-size: 0;
+  text-indent: -9999px;
+  appearance: none;
+  box-shadow: none;
+  border-radius: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+  -webkit-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
+  transition: all 0.7s ease;
+  &.right {
+    right: 0; 
+    margin-right: -$burgerSize;
+  }
+  &.left {
+    left: 0;
+    margin-left: -$burgerSize;
+  }
+}
+
+.burger:focus {
+  outline: none;
+}
+
+.burger span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -$lineWidth/2;
+  left: $lineWidth;
+  right: $lineWidth;
+  height: $lineWidth;
+  background-color: black;
+}
+
+.burger span::before,
+.burger span::after {
+  position: absolute;
+  display: block;
+  left: 0;
+  width: 100%;
+  height: $lineWidth;
+  background-color: black;
+  content: "";
+}
+
+.burger span::before {
+  top: -$burgerSize / 4;
+}
+
+.burger span::after {
+  bottom: -$burgerSize / 4;
+}
+
+.burger--htx span {
+  transition: background 0s 0.3s;
+}
+
+.burger--htx span::before,
+.burger--htx span::after {
+  transition-duration: 0.3s, 0.3s;
+  transition-delay: 0.3s, 0s;
+}
+
+.burger--htx span::before {
+  transition-property: top, transform;
+}
+
+.burger--htx span::after {
+  transition-property: bottom, transform;
+}
+
+/* active state, i.e. menu open */
+.burger--htx.active {
+  background-color: black;
+}
+
+.burger--htx.active span {
+  background: none; 
+  //background-color: white;
+}
+
+.burger--htx.active span::before {
+  top: 0;
+  transform: rotate(45deg);
+  background-color: white;
+}
+
+.burger--htx.active span::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+  background-color: white;
+}
+
+.burger--htx.active span::before,
+.burger--htx.active span::after {
+  transition-delay: 0s, 0.3s;
+}
