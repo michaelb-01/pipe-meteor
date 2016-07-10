@@ -4,4 +4,8 @@ interface Job {
   client?: string;
   agency?: string;
   thumbUrl?: string;
+  entities?: [{
+    type?: string;
+  }];
+  public: boolean;
 }

@@ -14,6 +14,9 @@ import { SidebarLeftComponent} from './imports/sidebar-left/sidebar-left.ts';
 import { JobsComponent } from './imports/job/jobs.ts';
 import { JobComponent } from './imports/job/job.ts';
 
+// entity
+import { EntityComponent } from './imports/entity/entity.ts';
+
 @Component({
   selector: 'app',
   templateUrl: '/client/app.html',
@@ -25,7 +28,8 @@ class Pipe {}
 
 const routes: RouterConfig = [
   { path: '', component: JobsComponent },
-  { path: 'job/:jobId', component: JobComponent }
+  { path: 'job/:jobId', component: JobComponent },
+  { path: 'job/:jobId/entity/:entityName', component: EntityComponent}
 ];
 
 const APP_ROUTER_PROVIDERS = [

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Jobs } from '../../../collections/jobs';
+import { Entities } from '../../../collections/entities';
 import { Mongo } from 'meteor/mongo';
 import { MeteorComponent } from 'angular2-meteor';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 @Injectable()
-export class JobService extends MeteorComponent{
-  jobs: Mongo.Cursor<Job>;
-  jobs$ = new BehaviorSubject<Mongo.Cursor<Job>>(null);
+export class EntityService extends MeteorComponent{
+  entities: Mongo.Cursor<Entity>;
+  entities$ = new BehaviorSubject<Mongo.Cursor<Entity>>(null);
   subscription: any;
 
   constructor() {
@@ -19,9 +19,9 @@ export class JobService extends MeteorComponent{
   }
 
   getJobs() {
-    this.subscription = this.subscribe('jobs', () => {
-      this.jobs = Jobs.find();
-      this.jobs$.next(Jobs.find());
+    this.subscription = this.subscribe('entities', () => {
+      this.entities = Entities.find();
+      this.entities$.next(Entities.find());
     }, true); // set autoBind to true to auto-update Angular
   }
 }

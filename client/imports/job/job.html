@@ -1,8 +1,6 @@
 <div id="detailsPanel">
   <ul id="breadcrumbs">
         <li [routerLink]="['Job', {jobId:id}]">{{job?.name}}</li>
-        <!--<i class="mdi mdi-chevron-right"></i>-->
-        <li [routerLink]="['Job', {jobId:id}]">{{job?.name}}</li>
   </ul>
 
   <!--
@@ -45,9 +43,9 @@
   </div>
 </div>
 
-<div *ngIf="job.entities">
-has {{job?.entities.length}} entities
-</div>
+<entities></entities>
+
+
 
 
 
