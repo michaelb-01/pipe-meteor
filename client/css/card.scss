@@ -1,6 +1,8 @@
 .cards {
   display: flex;
+	display: -webkit-flex;
   justify-content: center;
+	-webkit-justify-content: center
 }
 
 .card {
@@ -45,6 +47,7 @@
   }
   .card-header {
     display: flex;
+	display: -webkit-flex;
     padding: 5px;
     .card-avatar {
       width: 50px;
@@ -65,8 +68,10 @@
     }
     .card-title-group {
       display: flex;
+	    display: -webkit-flex;
       flex-direction: column;
       justify-content: center;
+	    -webkit-justify-content: center
     }
     .card-subtitle {
       color: #aaa;
@@ -106,8 +111,10 @@
 
 .banner {
   display: flex;
+	display: -webkit-flex;
   flex-direction: column;
   justify-content: center;
+	-webkit-justify-content: center
   position: absolute;
   width: 100%;
   height: 100%;

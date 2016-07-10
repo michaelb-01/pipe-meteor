@@ -4,6 +4,7 @@ header {
 
 #top-nav-list {
   display: flex;
+	display: -webkit-flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 0;
