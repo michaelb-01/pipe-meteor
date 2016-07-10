@@ -103,6 +103,7 @@ app {
   display: flex;
 	display: -webkit-flex;
   flex-direction: column;
+	-webkit-flex-direction: column;
   overflow-x: hidden;
   overflow-y: scroll;
   height: 100%;
@@ -136,6 +137,7 @@ versions {
 	display: -webkit-flex;
   flex-wrap: wrap;
   justify-content: center;
+	-webkit-justify-content: center;
 }
 .contentSafe {
   padding-top:23px;

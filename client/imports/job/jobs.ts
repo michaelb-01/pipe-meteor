@@ -4,10 +4,13 @@ import { Jobs } from '../../../collections/jobs';
 import { Mongo } from 'meteor/mongo';
 import { JobService } from './job.service';
 
+import {Fabs} from '../fabs/fabs';
+
 @Component({
   selector: 'jobs',
   templateUrl: '/client/imports/job/jobs.html',
-  directives: [ ROUTER_DIRECTIVES ],
+  directives: [ ROUTER_DIRECTIVES,
+                Fabs ],
   providers: [ JobService ]
 })
 

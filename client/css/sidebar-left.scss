@@ -38,6 +38,7 @@ $sidebarWidth: 250px;
           //white-space: normal;
           font-size: 14px;
           flex-shrink: 0;
+          -webkit-flex-shrink: 0;
           background-color: white;
           overflow: hidden;
         }
@@ -45,7 +46,9 @@ $sidebarWidth: 250px;
           display: flex;
 	        display: -webkit-flex;
           flex-direction: column;
+          -webkit-flex-direction: column;
           justify-content: center;
+          -webkit-justify-content: center;
         }
         .taskTimeLeft {
           border-style: solid;
