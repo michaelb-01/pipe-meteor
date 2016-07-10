@@ -10,16 +10,22 @@
   overflow-y: scroll;
   margin: 1%;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.12);
-  -webkit-transition: all 0.4s ease;
-  -moz-transition: all 0.4s ease;
-  -o-transition: all 0.4s ease;
-  transition: all 0.4s ease;
+  //-webkit-transition: all 0.4s ease;
+  //-moz-transition: all 0.4s ease;
+  //-o-transition: all 0.4s ease;
+  //transition: all 0.4s ease;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
+  border-bottom-color: white;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  &:hover {
+    border-bottom-color: #ff0d0d;
+  }
   &.deleted {
     -webkit-transition: max-height 0.4s ease,
                 width 0.4s 0.4s, margin 0.4s 0.4s;
@@ -46,8 +52,21 @@
       border-radius: 25px;
       padding: 5px; 
     }
+    .card-avatar-initials {
+      background-color: rgb(220, 94, 80);
+      color: white;
+      border-radius: 20px;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      text-align: center;
+      padding-right: 1px;
+      margin: 5px;
+    }
     .card-title-group {
-
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .card-subtitle {
       color: #aaa;

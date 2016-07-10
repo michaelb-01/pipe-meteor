@@ -1,27 +1,62 @@
 import { Jobs } from '../collections/jobs.ts';
 import { Entities } from '../collections/entities.ts';
+import { Versions } from '../collections/versions.ts';
 
 var images = ['bmw','clothes','interior','wallSmash','warAndPeace','willYoung'];
 var types = ['asset','shot'];
+
+function createVersion(jobId, jobName, entityId, entityName) {
+  console.log('create version in ' + entityId);
+
+  var version = {
+    'job': {
+      'jobId': jobId,
+      'jobName': jobName
+    },
+    'entity': {
+      'entityId': entityId,
+      'entityName': entityName
+    },
+    'author': 'Mike Battcock',
+    'version': Math.floor((Math.random() * 100) + 1),
+    'notes': [],
+    'type': 'still',
+    'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
+    'description': Fake.sentence(7),
+    'date': new Date(),
+    'public': true
+  }
+
+  var versionId = Versions.insert(version);
+}
 
 function createEntity(jobId, jobName) {
   console.log('create entity in ' + jobId);
 
   var entity = {
-        'job': {
-          'jobId': jobId,
-          'jobName': jobName
-        },
-        'name': Fake.sentence(1),
-        'type': types[Math.floor((Math.random() * types.length))],
-        'status': 'active',
-        'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
-        'public': true
+    'job': {
+      'jobId': jobId,
+      'jobName': jobName
+    },
+    'name': Fake.sentence(1),
+    'type': types[Math.floor((Math.random() * types.length))],
+    'status': 'active',
+    'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
+    'description': Fake.sentence(7),
+    'public': true
   }
 
   var entityId;
 
   entityId = Entities.insert(entity);
+
+  // random integer between 1 and 10
+  var numVersions = Math.floor((Math.random() * 10) + 1);
+
+  // create entities in job
+  for (var i = 0; i < numVersions; i++) {
+    createVersion(jobId, jobName, entityId, entity.name);
+  }
 } 
  
 export function createJobs() {

@@ -8,5 +8,6 @@ interface Entity {
   type?: string;       // asset/build
   status?: string;     // not started, active, pending review, complete
   thumbUrl?: string;
+  description?: string;
   public: boolean;
 }

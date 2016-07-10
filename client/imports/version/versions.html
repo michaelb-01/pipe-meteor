@@ -1,0 +1,54 @@
+<!--
+<div class="contentSafe">
+  <div *ngFor="let version of versions" class="card">
+    <a>
+      <div class="card-image">
+        <img src="/img/{{version.thumbUrl}}">
+        <div class="banner fadeOut">
+          <h2 class="cardTitle">{{version.version}}</h2>
+          <h5 class="cardTag">{{versions.author}}</h5>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+-->
+
+<div *ngFor="let version of versions" class="card">
+    <div class="card-header flexLeftRight">
+      <div class="flex">
+        <!--<img class="card-avatar" src="img/jobs/bmw.jpg">-->
+        <div class="card-avatar-initials">
+          MB
+        </div>
+        <div class="card-title-group">
+          <div class="card-title">{{version?.author}}</div>
+          <a>
+            <div class="card-subtitle">v{{version?.version}}</div>
+          </a>
+        </div>
+      </div>
+
+      <!--<action-window [version]=version></action-window>-->
+
+    </div>
+
+    <div class="card-image">
+      <img *ngIf="version?.type == 'still'" class="card-image" src="/img/{{version?.thumbUrl}}">
+
+      <!--
+      <div class="banner fadeOut">
+        <h2 class="title">SH0040</h2>
+        <h5 class="subtitle">shot</h5>
+      </div>
+      -->
+    </div>
+    <div class="card-content">
+      <!--<h4>{{version?.name}}</h4>-->
+      {{version?.description}}
+    </div>
+
+    <div class="card-footer" style="border:none">
+      <h6>{{version?.date | date: 'dd/MM/yyyy'}}</h6>
+    </div>
+  </div>

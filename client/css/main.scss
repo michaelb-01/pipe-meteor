@@ -18,22 +18,37 @@ html, body {
   font-style: normal; 
 }
 
-@font-face {
-    font-family: 'sofia_pro_condensedlight';
-    src: url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.eot');
-    src: url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.woff2') format('woff2'),
-         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.woff') format('woff'),
-         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.ttf') format('truetype'),
-         url('/fonts/sofiaProCondensed/SofiaProLiCond-webfont.svg#sofia_pro_condensedlight') format('svg');
-    font-weight: normal;
-    font-style: normal;
 
+@font-face {
+  font-family: 'Aileron-Light';
+  src: url('/fonts/Aileron-Light/Aileron-Light.eot?#iefix') format('embedded-opentype'),  
+       url('/fonts/Aileron-Light/Aileron-Light.otf')  format('opentype'),
+       url('/fonts/Aileron-Light/Aileron-Light.woff') format('woff'), 
+       url('/fonts/Aileron-Light/Aileron-Light.ttf')  format('truetype'), 
+       url('/fonts/Aileron-Light/Aileron-Light.svg#Aileron-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Aileron-SemiBold';
+  src: url('/fonts/Aileron-SemiBold/Aileron-SemiBold.eot?#iefix') format('embedded-opentype'),  
+       url('/fonts/Aileron-SemiBold/Aileron-SemiBold.otf')  format('opentype'),
+       url('/fonts/Aileron-SemiBold/Aileron-SemiBold.woff') format('woff'), 
+       url('/fonts/Aileron-SemiBold/Aileron-SemiBold.ttf')  format('truetype'), 
+       url('/fonts/Aileron-SemiBold/Aileron-SemiBold.svg#Aileron-SemiBold') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 * {
-  font-size: 0.98em;
-  font-family: 'arial'; 
+  font-size: 0.975em;
+  font-family: 'sofia_prolight'; 
+}
+
+.bold {
+  font-family: 'Aileron-SemiBold';
+  text-transform: uppercase;
 }
 
 // font sizes
@@ -96,6 +111,11 @@ job {
   width:100%;
 }
 
+versions {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #wrapper {
   display: flex;
   flex: 1;
@@ -103,7 +123,7 @@ job {
 
 #contentWrapper {
   width:100%;
-  margin: 0 28px;
+  margin: 0 40px;
 }
 
 .content, .contentSafe {
@@ -116,6 +136,9 @@ job {
   padding-top:23px;
 }
 
+.flex {
+  display: flex;
+}
 
 
 

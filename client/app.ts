@@ -17,6 +17,9 @@ import { JobComponent } from './imports/job/job.ts';
 // entity
 import { EntityComponent } from './imports/entity/entity.ts';
 
+// versions
+import { VersionsComponent } from './imports/version/versions.ts';
+
 @Component({
   selector: 'app',
   templateUrl: '/client/app.html',
@@ -29,7 +32,7 @@ class Pipe {}
 const routes: RouterConfig = [
   { path: '', component: JobsComponent },
   { path: 'job/:jobId', component: JobComponent },
-  { path: 'job/:jobId/entity/:entityName', component: EntityComponent}
+  { path: 'entity/:entityId', component: EntityComponent}
 ];
 
 const APP_ROUTER_PROVIDERS = [
