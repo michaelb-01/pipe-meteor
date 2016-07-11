@@ -30,20 +30,13 @@
   </div>
 </div>
 
-<!--
-<div class="cards shots">
-  <span *ngFor="let entity of entities">
-    <div *ngIf="entity.type=='shot'" class="card">
-      <div class="card-thumb">
-        <img src="/img/{{entity?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
-        <div class="banner fadeOut">
-          <a>
-            <h2 class="cardTitle">{{entity.name}}</h2>
-            <h5 class="cardTag">{{entity.type}}</h5>
-          </a>
-        </div>
-      </div>
+<entity-form jobId={{jobId}} jobName={{first?.job?.jobName}}></entity-form>
+
+<fabs>
+  <li>
+    <div class="fab" tooltip="Create Entity" [routerLink]="['/entityForm']">
+      <i class="material-icons">add</i>
     </div>
-  </span>
-</div>
--->
+  </li>
+</fabs>
+

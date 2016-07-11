@@ -18,6 +18,7 @@ import { JobFormComponent } from './imports/job/job-form.ts';
 
 // entity
 import { EntityComponent } from './imports/entity/entity.ts';
+import { EntityFormComponent } from './imports/entity/entity-form.ts';
 
 // versions
 import { VersionsComponent } from './imports/version/versions.ts';
@@ -35,7 +36,9 @@ const routes: RouterConfig = [
   { path: '', component: JobsComponent },
   { path: 'job/:jobId', component: JobComponent },
   { path: 'jobForm', component: JobFormComponent },
-  { path: 'entity/:entityId', component: EntityComponent}
+
+  { path: 'entity/:entityId', component: EntityComponent},
+  { path: 'entityForm', component: EntityFormComponent }
 ];
 
 const APP_ROUTER_PROVIDERS = [

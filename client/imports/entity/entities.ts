@@ -5,15 +5,21 @@ import { Mongo } from 'meteor/mongo';
 import { EntityService } from './entity.service';
 import { MeteorComponent } from 'angular2-meteor';
 
+import { EntityFormComponent } from './entity-form'; 
+
 @Component({
   selector: 'entities',
   templateUrl: '/client/imports/entity/entities.html',
-  directives: [ ROUTER_DIRECTIVES ],
+  directives: [ ROUTER_DIRECTIVES,
+                EntityFormComponent ],
   providers: [ EntityService ]
 })
 
 export class EntitiesComponent  extends MeteorComponent {
   entities: Mongo.Cursor<Entity>;
+
+  first: Object;
+
   subscription: any;
 
   jobId: string;
@@ -31,8 +37,11 @@ export class EntitiesComponent  extends MeteorComponent {
       this.jobId = params['jobId'];
 
       this.subscribe('entities', () => {
+        var idx = 0;
         this.entities = Entities.find({ "job.jobId": this.jobId }).forEach((item) => {
-
+          if (idx == 0) {
+            this.first = item;
+          }
           // sort into assets and shots
           if (item.type === 'asset') {
             this.assets.push(item);
@@ -40,6 +49,8 @@ export class EntitiesComponent  extends MeteorComponent {
           else if (item.type === 'shot') {
             this.shots.push(item);
           }
+
+          idx += 1;
         });
       }, true);
     });

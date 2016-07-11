@@ -1,15 +1,15 @@
-<form>
+<form [ngFormModel]="jobForm" #f="ngForm" (submit)="addJob(f.value)">
   <label>Name</label>
-  <input type="text">
+  <input type="text" ngControl="name">
   
   <label>Client</label>
-  <input type="text">
+  <input type="text" ngControl="client">
   
   <label>Agency</label>
-  <input type="text">
+  <input type="text" ngControl="agency">
 
   <label>Public</label>
-  <input type="checkbox">
+  <input type="checkbox" ngControl="public">
 
   <button>Add</button>
 </form>
