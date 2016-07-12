@@ -33,6 +33,12 @@ export class VersionsComponent  extends MeteorComponent {
       }, true);
     });
   }
+
+  showNotes = true;
+  toggleNotes(el,newState) {
+    this.showNotes = newState;
+    console.log(el);
+  }
 }
 
 /*

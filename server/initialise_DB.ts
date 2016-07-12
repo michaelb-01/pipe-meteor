@@ -8,6 +8,13 @@ var types = ['asset','shot'];
 function createVersion(jobId, jobName, entityId, entityName) {
   console.log('create version in ' + entityId);
 
+  var maxNotes = 10;
+
+  var notes = [];
+  for (var i=0;i<Math.floor(Math.random() * maxNotes);i++) {
+    notes.push(Fake.sentence(Math.floor(Math.random() * 8)));
+  }
+
   var version = {
     'job': {
       'jobId': jobId,
@@ -19,7 +26,7 @@ function createVersion(jobId, jobName, entityId, entityName) {
     },
     'author': 'Mike Battcock',
     'version': Math.floor((Math.random() * 100) + 1),
-    'notes': [],
+    'notes': notes,
     'type': 'still',
     'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
     'description': Fake.sentence(7),

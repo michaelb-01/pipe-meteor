@@ -6,6 +6,8 @@
 }
 
 .card {
+  display: flex;
+  flex-direction: column;
   position: relative;
   width:23%;
   max-height:400px;
@@ -25,9 +27,6 @@
   border-bottom-color: rgba(255, 255, 255, 0);
   border-bottom-style: solid;
   border-bottom-width: 2px;
-  &.extra {
-    padding-bottom: 20px;
-  }
   &:hover {
     border-bottom-color: #ff0d0d;
   }
@@ -81,6 +80,9 @@
       color: #aaa;
     }
   }
+  .card-content {
+    flex: 1 0 auto;
+  }
   .card-image {
     position: relative;
   }
@@ -92,12 +94,26 @@
     padding: 10px;
   }
   .card-footer {
-    padding: 3px;
-    bottom: 0;
-    position: absolute;
     width: 100%;
+    padding: 3px;
     border-top: 1px solid #ddd;
     color: #bbb;
+    .date {
+      float:left;
+    }
+    .notes_num {
+      float:right;
+    }
+  }
+  .notes {
+    max-height: 0;
+    overflow: hidden;
+    -webkit-transition: max-height 0.8s;
+    -moz-transition: max-height 0.8s;
+    transition: max-height 0.8s;
+    &.open {
+      max-height: 100px;
+    }
   }
   .card-table {
     max-height: 100px;

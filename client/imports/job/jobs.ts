@@ -4,7 +4,11 @@ import { Jobs } from '../../../collections/jobs';
 import { Mongo } from 'meteor/mongo';
 import { JobService } from './job.service';
 
+import { Meteor } from 'meteor/meteor'
+
 import {Fabs} from '../fabs/fabs';
+
+//const fs = require('fs');
 
 @Component({
   selector: 'jobs',
@@ -30,4 +34,32 @@ export class JobsComponent {
       // do other things
     });
   }
+
+  //if (Meteor.is_client) {
+    writeFile() {
+      Meteor.call('writeFileTest',function(err, res) {
+        console.log(err);
+        console.log(res);
+      });
+    }
+  //}
+
+/*
+  writeFile() {
+    console.log('write');
+    
+    //var filepath = path.join(__dirname, 'test.txt');
+    //var filepath = '/Users/michaelbattcock/Desktop/test.txt';
+
+    //fs.writeFileSync(filepath, "HelloWorld");
+
+    Electrify.call('hello.world', ['anderson', 'arboleya'], function(err, msg) {
+      console.log(err);
+      console.log(msg); // Hello anderson arboleya!
+    });
+
+
+  }
+*/
+
 }
