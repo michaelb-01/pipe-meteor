@@ -10,6 +10,7 @@ import { PartyDetails } from './imports/party-details/party-details.ts';
 // import components
 import { TopNavComponent} from './imports/top-nav/top-nav.ts';
 import { SidebarLeftComponent} from './imports/sidebar-left/sidebar-left.ts';
+import { SidebarRightComponent} from './imports/sidebar-right/sidebar-right.ts';
 
 // job
 import { JobsComponent } from './imports/job/jobs.ts';
@@ -28,6 +29,7 @@ import { VersionsComponent } from './imports/version/versions.ts';
   templateUrl: '/client/app.html',
   directives: [TopNavComponent,
                SidebarLeftComponent,
+               SidebarRightComponent,
                ROUTER_DIRECTIVES]
 })
 class Pipe {}

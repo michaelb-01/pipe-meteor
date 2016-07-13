@@ -12,6 +12,15 @@ $sidebarWidth: 250px;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.12);
   white-space: nowrap;
   overflow: visible;
+  &.right {
+    position: absolute;
+    width: 250px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-color: white;
+    z-index: 9999;
+  }
   &.closed {
     box-shadow: 0 0 0 0;
     &.left {
@@ -138,7 +147,6 @@ $lineWidth: 2px;
   left: $lineWidth;
   right: $lineWidth;
   height: $lineWidth;
-  background-color: black;
 }
 
 .burger span::before,
@@ -148,8 +156,13 @@ $lineWidth: 2px;
   left: 0;
   width: 100%;
   height: $lineWidth;
-  background-color: black;
   content: "";
+}
+
+.burger.right span,
+.burger.right span::before,
+.burger.right span::after {
+  background-color: black;
 }
 
 .burger span::before {
@@ -179,7 +192,7 @@ $lineWidth: 2px;
 }
 
 /* active state, i.e. menu open */
-.burger--htx.active {
+.burger.right.active {
   background-color: black;
 }
 
@@ -191,13 +204,21 @@ $lineWidth: 2px;
 .burger--htx.active span::before {
   top: 0;
   transform: rotate(45deg);
-  background-color: white;
 }
 
 .burger--htx.active span::after {
   bottom: 0;
   transform: rotate(-45deg);
+}
+
+.burger.right.active span::before,
+.burger.right.active span::after {
   background-color: white;
+}
+
+.burger.left.active span::before,
+.burger.left.active span::after {
+  background-color: black;
 }
 
 .burger--htx.active span::before,

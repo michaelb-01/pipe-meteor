@@ -1,0 +1,12 @@
+<nav class="sidebar right" [ngClass]="{closed: !showSidebarRight}">
+  <ul class="scrollbar">
+    <li>
+      <p class="title">Create</p>
+    </li>
+  </ul>
+
+  <button (click)="toggleSidebarRight(!showSidebarRight)" [ngClass]="{active: showSidebarRight}" class="burger left burger--htx">
+    <span></span>
+    <span></span>
+  </button>
+</nav>
