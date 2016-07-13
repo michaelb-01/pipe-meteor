@@ -55,4 +55,24 @@ export class EntityFormComponent {
   }
 }
 
+/*
+
+db.entities.insert({
+        job: {
+          jobId: "Xy3YE4emmBQ4za5gh",
+          jobName: "X-World"
+        },
+        name: "test2",
+        type: "asset",
+        status: "active",
+        thumbUrl: "",
+        description: "test description",
+        public: true
+      });
+
+
+
+
+*/
+
 

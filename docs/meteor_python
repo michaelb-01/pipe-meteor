@@ -1,0 +1,20 @@
+Meteor python - https://github.com/hharnisc/python-meteor
+
+// in houdini for example
+// I first installed via pip so this is now accessible:
+
+from MeteorClient import MeteorClient
+
+// connect to localhost
+client = MeteorClient('ws://127.0.0.1:3000/websocket')
+client.connect()
+
+def callback_function(error, result):
+    if error:
+        print(error)
+        return
+
+    print('success')
+
+// no parameters so just leave as empty array
+client.call('writeFileTest', [], callback_function)

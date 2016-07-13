@@ -4,7 +4,7 @@ import { Jobs } from '../../../collections/jobs';
 import { Mongo } from 'meteor/mongo';
 import { JobService } from './job.service';
 
-import { Meteor } from 'meteor/meteor'
+import { Meteor } from 'meteor/meteor';
 
 import {Fabs} from '../fabs/fabs';
 
