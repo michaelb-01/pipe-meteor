@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { Component, provide } from '@angular/core';
 import { bootstrap } from 'angular2-meteor-auto-bootstrap';
+import {disableDeprecatedForms, provideForms} from '@angular/forms'
 
 import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
@@ -47,4 +48,7 @@ const APP_ROUTER_PROVIDERS = [
   provideRouter(routes)
 ];
 
-bootstrap(Pipe, [APP_ROUTER_PROVIDERS, provide(APP_BASE_HREF, { useValue: '/' })]);
+bootstrap(Pipe, [APP_ROUTER_PROVIDERS, 
+                 disableDeprecatedForms(),
+                 provideForms(),
+                 provide(APP_BASE_HREF, { useValue: '/' })]);

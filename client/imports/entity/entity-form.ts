@@ -2,11 +2,14 @@ import 'reflect-metadata';
 import { Component, Input } from '@angular/core';
 import { FormBuilder, ControlGroup, Validators, Control } from '@angular/common';
 
+import {MD_INPUT_DIRECTIVES} from '@angular2-material/input/input';
+
 import { Entities } from '../../../collections/entities.ts';
  
 @Component({
   selector: 'entity-form',
   templateUrl: '/client/imports/entity/entity-form.html',
+  directives: [ MD_INPUT_DIRECTIVES ]
 })
 export class EntityFormComponent { 
 

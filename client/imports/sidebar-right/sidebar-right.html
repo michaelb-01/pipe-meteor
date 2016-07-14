@@ -3,6 +3,24 @@
     <li>
       <p class="title">Create</p>
     </li>
+
+    <form #jobForm="ngForm" (submit)="onSubmit(jobForm.value)">
+      <md-input placeholder="Name" [(ngModel)]="jobForm.name" name="name"></md-input>
+      <br>
+      <md-input placeholder="Client" [(ngModel)]="jobForm.client" name="client"></md-input>
+      <br>
+      <md-input placeholder="Agency" [(ngModel)]="jobForm.agency" name="agency"></md-input>
+      <br>
+      <md-input placeholder="ThumbUrl" [(ngModel)]="jobForm.thumbUrl" name="thumbUrl"></md-input>
+      <br>
+      <md-checkbox [checked]="true" [(ngModel)]="jobForm.public" name="public">
+        Public
+      </md-checkbox>  
+
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+
   </ul>
 
   <button (click)="toggleSidebarRight(!showSidebarRight)" [ngClass]="{active: showSidebarRight}" class="burger left burger--htx">
@@ -10,3 +28,5 @@
     <span></span>
   </button>
 </nav>
+
+
