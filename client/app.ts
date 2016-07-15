@@ -25,6 +25,9 @@ import { EntityFormComponent } from './imports/entity/entity-form.ts';
 // versions
 import { VersionsComponent } from './imports/version/versions.ts';
 
+// shared service
+import {SharedService} from './sharedService';
+
 @Component({
   selector: 'app',
   templateUrl: '/client/app.html',
@@ -49,9 +52,10 @@ const APP_ROUTER_PROVIDERS = [
 ];
 
 bootstrap(Pipe, [
+  SharedService,
   APP_ROUTER_PROVIDERS, 
   disableDeprecatedForms(),
   provideForms(),
   provide(APP_BASE_HREF, { useValue: '/' })
-])
+  ])
 .catch((err: any) => console.error(err));

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
 import { Jobs } from '../../../collections/jobs';
 import { Mongo } from 'meteor/mongo';
@@ -7,6 +7,8 @@ import { JobService } from './job.service';
 import { Meteor } from 'meteor/meteor';
 
 import {Fabs} from '../fabs/fabs';
+
+import {SharedService} from '../../sharedService';
 
 //const fs = require('fs');
 
@@ -22,7 +24,9 @@ export class JobsComponent {
   jobs: Mongo.Cursor<Job>;
   subscription: any;
 
-  constructor(private _jobService: JobService) { }
+
+  constructor(private _jobService: JobService,
+              public __sharedService:SharedService) {}
 
   ngOnInit() {
     this._jobService.getJobs();
@@ -35,31 +39,15 @@ export class JobsComponent {
     });
   }
 
-  //if (Meteor.is_client) {
-    writeFile() {
-      Meteor.call('writeFileTest',function(err, res) {
-        console.log(err);
-        console.log(res);
-      });
-    }
-  //}
-
-/*
   writeFile() {
-    console.log('write');
-    
-    //var filepath = path.join(__dirname, 'test.txt');
-    //var filepath = '/Users/michaelbattcock/Desktop/test.txt';
-
-    //fs.writeFileSync(filepath, "HelloWorld");
-
-    Electrify.call('hello.world', ['anderson', 'arboleya'], function(err, msg) {
+    Meteor.call('writeFileTest',function(err, res) {
       console.log(err);
-      console.log(msg); // Hello anderson arboleya!
+      console.log(res);
     });
-
-
   }
-*/
 
+  @Output() myEvent = new EventEmitter();
+  functionTest() {
+    this.__sharedService.announce('some new value');
+  }
 }
