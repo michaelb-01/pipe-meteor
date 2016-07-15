@@ -31,11 +31,13 @@ $sidebarWidth: 250px;
     }
   }
   ul {
-    text-align: center;
     li {
       border-style: solid;
       border-width: 0 0 1px 0;
       border-color: #ddd;
+      .title {
+        text-align: center;
+      }
       .taskMenu {
         display: flex;
 	      display: -webkit-flex;
@@ -98,6 +100,16 @@ $sidebarWidth: 250px;
     }
   }
 }
+
+#createForm {
+  margin: 0 20%;
+}
+
+// INPUT
+md-input {
+  width: 100%;
+}
+// BURGER MENU
 
 $burgerSize: 28px;
 $lineWidth: 2px;

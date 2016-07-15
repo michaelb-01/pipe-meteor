@@ -4,8 +4,9 @@
       <p class="title">Create</p>
     </li>
 
-    <form #jobForm="ngForm" (submit)="onSubmit(jobForm.value)">
-      <md-input placeholder="Name" [(ngModel)]="jobForm.name" name="name"></md-input>
+    <form #jobForm="ngForm" (submit)="onSubmit(jobForm.value)" id="createForm">
+      <md-input placeholder="Name" [(ngModel)]="jobForm.name" name="name" required></md-input>
+      {{jobForm.name}}
       <br>
       <md-input placeholder="Client" [(ngModel)]="jobForm.client" name="client"></md-input>
       <br>
@@ -16,8 +17,9 @@
       <md-checkbox [checked]="true" [(ngModel)]="jobForm.public" name="public">
         Public
       </md-checkbox>  
-
-      <button type="submit" class="btn btn-default">Submit</button>
+      <br>
+      <br>
+      <button type="submit">Submit</button>
     </form>
 
 

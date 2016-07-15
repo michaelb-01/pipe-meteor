@@ -48,7 +48,10 @@ const APP_ROUTER_PROVIDERS = [
   provideRouter(routes)
 ];
 
-bootstrap(Pipe, [APP_ROUTER_PROVIDERS, 
-                 disableDeprecatedForms(),
-                 provideForms(),
-                 provide(APP_BASE_HREF, { useValue: '/' })]);
+bootstrap(Pipe, [
+  APP_ROUTER_PROVIDERS, 
+  disableDeprecatedForms(),
+  provideForms(),
+  provide(APP_BASE_HREF, { useValue: '/' })
+])
+.catch((err: any) => console.error(err));

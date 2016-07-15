@@ -99,6 +99,12 @@ i {
   cursor: pointer;
 }
 
+button {
+  background: none;
+  border: none;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.1);
+}
+
 app {
   display: flex;
 	display: -webkit-flex;
