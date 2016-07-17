@@ -3,6 +3,7 @@ import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Versions } from '../../../collections/versions';
 import { Mongo } from 'meteor/mongo';
 import { MeteorComponent } from 'angular2-meteor';
+import {SharedService} from '../../sharedService';
 
 @Component({
   selector: 'versions',
@@ -11,15 +12,14 @@ import { MeteorComponent } from 'angular2-meteor';
 })
 
 export class VersionsComponent  extends MeteorComponent {
-  versions: Mongo.Cursor<Object>;
+  versions: Mongo.Cursor<Version>;
   subscription: any;
 
   entityId: string;
+  selected: string[] = [];
 
-  assets = [];
-  shots = [];
-
-  constructor(private route: ActivatedRoute) { 
+  constructor(private route: ActivatedRoute,
+              private _sharedService: SharedService) { 
     super();
   }
 
@@ -39,22 +39,30 @@ export class VersionsComponent  extends MeteorComponent {
     this.showNotes = newState;
     console.log(el);
   }
+
+  select(version) {
+    //version.selected = !version.selected;  // toggle selected attribute
+
+    if (version.selected != true) {
+      version.selected = true;
+      this.selected.push(version._id);
+    }
+    else {
+      version.selected = false;
+      var idx = this.selected.indexOf(version._id);
+      this.selected.splice(idx, 1);
+    }
+
+    
+  }
+
+
+  editSelected() {
+    this._sharedService.edit('form');
+  }
+  
 }
 
-/*
 
-          console.log(this.job);
-
-          if (this.job != null) {
-            this.assets = this.job.entities.filter(function (el) {
-              return el.type === 'asset';
-            });
-
-            this.shots = this.job.entities.filter(function (el) {
-              return el.type === 'shot';
-            });
-          }
-
-*/
 
 

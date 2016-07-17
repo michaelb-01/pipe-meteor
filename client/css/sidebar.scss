@@ -32,9 +32,6 @@ $sidebarWidth: 250px;
   }
   ul {
     li {
-      border-style: solid;
-      border-width: 0 0 1px 0;
-      border-color: #ddd;
       .title {
         text-align: center;
       }
@@ -101,7 +98,13 @@ $sidebarWidth: 250px;
   }
 }
 
-#createForm {
+.scrollbar .li {
+  border-style: solid;
+  border-width: 0 0 1px 0;
+  border-color: #ddd;
+}
+
+#form {
   margin: 0 20%;
 }
 
@@ -112,7 +115,7 @@ md-input {
 // BURGER MENU
 
 $burgerSize: 28px;
-$lineWidth: 2px;
+$lineWidth: 1px;
 
 .burger {
   display: block;
@@ -131,7 +134,6 @@ $lineWidth: 2px;
   box-shadow: none;
   border-radius: none;
   border: none;
-  cursor: pointer;
   transition: background 0.3s;
   -webkit-transition: all 0.7s ease;
   -moz-transition: all 0.7s ease;

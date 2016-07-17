@@ -5,14 +5,12 @@ import { Mongo } from 'meteor/mongo';
 import { EntityService } from './entity.service';
 import { MeteorComponent } from 'angular2-meteor';
 
-import { EntityFormComponent } from './entity-form'; 
 import { Tracker } from 'meteor/tracker';
 
 @Component({
   selector: 'entities',
   templateUrl: '/client/imports/entity/entities.html',
-  directives: [ ROUTER_DIRECTIVES,
-                EntityFormComponent ],
+  directives: [ ROUTER_DIRECTIVES ],
   providers: [ EntityService ]
 })
 

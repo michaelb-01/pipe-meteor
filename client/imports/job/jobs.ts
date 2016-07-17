@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES }  from '@angular/router';
 import { Jobs } from '../../../collections/jobs';
 import { Mongo } from 'meteor/mongo';
@@ -46,7 +46,6 @@ export class JobsComponent {
     });
   }
 
-  @Output() myEvent = new EventEmitter();
   functionTest() {
     this.__sharedService.announce('some new value');
   }

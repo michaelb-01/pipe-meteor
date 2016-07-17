@@ -2,7 +2,7 @@
   <div *ngFor="let job of jobs" class="card">
     <a [routerLink]="['/job', job._id]">
       <div class="card-image">
-        <img src="/img/{{job.thumbUrl}}">
+        <img src="/img/{{job.thumbUrl}}" onerror="this.src='/img/default.jpg'">
         <div class="banner fadeOut">
           <h2 class="cardTitle">{{job.client}}</h2>
           <h5 class="cardTag">{{job.name}}</h5>
@@ -10,8 +10,10 @@
       </div>
     </a>
   </div>
+
 </div>
 
+<!--
 <fabs>
   <li>
     <div class="fab" tooltip="Create Job" [routerLink]="['/jobForm']">
@@ -29,3 +31,5 @@
     </div>
   </li>
 </fabs>
+
+-->

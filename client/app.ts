@@ -20,10 +20,12 @@ import { JobFormComponent } from './imports/job/job-form.ts';
 
 // entity
 import { EntityComponent } from './imports/entity/entity.ts';
-import { EntityFormComponent } from './imports/entity/entity-form.ts';
 
 // versions
 import { VersionsComponent } from './imports/version/versions.ts';
+
+// users
+import { UsersComponent } from './imports/user/users.ts';
 
 // shared service
 import {SharedService} from './sharedService';
@@ -44,7 +46,9 @@ const routes: RouterConfig = [
   { path: 'jobForm', component: JobFormComponent },
 
   { path: 'entity/:entityId', component: EntityComponent},
-  { path: 'entityForm', component: EntityFormComponent }
+
+  { path: 'users', component: UsersComponent },
+  { path: 'user/:userId', component: UsersComponent }
 ];
 
 const APP_ROUTER_PROVIDERS = [

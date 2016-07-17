@@ -14,49 +14,52 @@
 </div>
 -->
 
-<div *ngFor="let version of versions" class="card extra">
-    <div class="card-header flexLeftRight">
-      <div class="flex">
-        <!--<img class="card-avatar" src="img/jobs/bmw.jpg">-->
-        <div class="card-avatar-initials">
-          MB
-        </div>
-        <div class="card-title-group">
-          <div class="card-title">{{version?.author}}</div>
-          <a>
-            <div class="card-subtitle">v{{version?.version}}</div>
-          </a>
-        </div>
+<div *ngFor="let version of versions;" (click)="select(version)" 
+      class="card extra" [ngClass]="{selected: version.selected}">
+  <div class="card-header flexLeftRight">
+    <div class="flex">
+      <!--<img class="card-avatar" src="img/jobs/bmw.jpg">-->
+      <div class="card-avatar-initials">
+        MB
       </div>
-
-      <!--<action-window [version]=version></action-window>-->
-
-    </div>
-
-    <div class="card-image">
-      <img *ngIf="version?.type == 'still'" class="card-image" src="/img/{{version?.thumbUrl}}">
-
-      <!--
-      <div class="banner fadeOut">
-        <h2 class="title">SH0040</h2>
-        <h5 class="subtitle">shot</h5>
+      <div class="card-title-group">
+        <div class="card-title">{{version?.author}}</div>
+        <a>
+          <div class="card-subtitle">v{{version?.version}}</div>
+        </a>
       </div>
-      -->
-    </div>
-    <div class="card-content">
-      <!--<h4>{{version?.name}}</h4>-->
-      {{version?.description}}
     </div>
 
-    <div class="card-footer">
-      <h6 class="date">{{version?.date | date: 'dd/MM/yyyy'}}</h6>
-      <h6 class="notes_num" (click)="toggleNotes(version)">
-        {{version?.notes?.length}} notes
-      </h6>
-    </div>
+    <!--<action-window [version]=version></action-window>-->
 
-    <div class="notes" [ngClass]="{show: version.showNotes}">
-
-      {{version?.notes[0]}}
-    </div>
   </div>
+
+  <div class="card-image">
+    <img *ngIf="version?.type == 'still'" class="card-image" src="/img/{{version?.thumbUrl}}">
+
+    <!--
+    <div class="banner fadeOut">
+      <h2 class="title">SH0040</h2>
+      <h5 class="subtitle">shot</h5>
+    </div>
+    -->
+  </div>
+  <div class="card-content">
+    <!--<h4>{{version?.name}}</h4>-->
+    {{version?.description}}
+  </div>
+
+  <div class="card-footer">
+    <h6 class="date">{{version?.date | date: 'dd/MM/yyyy'}}</h6>
+    <h6 class="notes_num" (click)="toggleNotes(version)">
+      {{version?.notes?.length}} notes
+    </h6>
+  </div>
+
+  <div class="notes" [ngClass]="{show: version.showNotes}">
+
+    {{version?.notes[0]}}
+  </div>
+</div>
+
+<button *ngIf="selected.length>0" style="background-color:red;" (click)="editSelected()"></button>

@@ -1,0 +1,14 @@
+Constructors
+
+Any denpencies needed for the class go in the parenteses of the constructor.
+Angular 2 will create an instance object of whatever is included here (services etc)
+Variables included here will created and initialised.
+
+So the following says, create an instance of 'Object', called '_varName'. And since it is private, it will only be accessible within this class.
+
+private _varName: Object
+
+
+Dependency Injection:
+https://www.youtube.com/watch?v=HPvMD0lck70
+

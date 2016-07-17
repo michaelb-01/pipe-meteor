@@ -24,4 +24,8 @@ export class JobService extends MeteorComponent{
       this.jobs$.next(Jobs.find());
     }, true); // set autoBind to true to auto-update Angular
   }
+
+  addJob() {
+    
+  }
 }

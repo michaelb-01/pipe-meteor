@@ -1,6 +1,34 @@
 import { Jobs } from '../collections/jobs.ts';
 import { Entities } from '../collections/entities.ts';
 import { Versions } from '../collections/versions.ts';
+import { Users } from '../collections/users.ts';
+
+var users = ['Mike Battcock', 'Ben Cantor', 'Sam Osbourne'];
+
+function createUser(name) {
+  var user = {
+    'name': name,
+    'entities': [{
+      'entity': {
+        'entityId': '',
+        'entityName': ''
+      }
+    }],
+    'email': 'user-email@gmail.com',
+    'phone': Math.floor(Math.random() * 1000000000),
+    'roles': ['3D','FX'],
+    'photoUrl': '',
+    'public': true
+  }
+
+  var userId = Users.insert(user);
+}
+
+export function createUsers () {
+  for (var i = 0; i < users.length; i++) {
+    createUser(users[i]);
+  }
+}
 
 var images = ['bmw','clothes','interior','wallSmash','warAndPeace','willYoung'];
 var types = ['asset','shot'];

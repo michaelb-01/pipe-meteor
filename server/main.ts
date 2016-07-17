@@ -1,11 +1,10 @@
-import {createJobs} from './initialise_DB.ts';
+import {createJobs, createUsers} from './initialise_DB.ts';
 import {Meteor} from 'meteor/meteor';
 import './entities.ts';
  
 Meteor.startup(function () {
     createJobs();
-
-    console.log('creating methods');
+    createUsers();
 
     var filepath = '/Users/michaelbattcock/Desktop/test.txt';
 

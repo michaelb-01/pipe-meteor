@@ -7,25 +7,30 @@ import { Jobs } from '../../../collections/jobs.ts';
 import {SharedService} from '../../sharedService';
 import {Subscription}   from 'rxjs/Subscription';
 
-import { JobsComponent } from '../job/jobs'; 
+import { JobService } from '../job/job.service';
+
+import {Fabs} from '../fabs/fabs';
 
 @Component({
   selector: 'sidebar-right',
   templateUrl: '/client/imports/sidebar-right/sidebar-right.html',
   directives: [MD_INPUT_DIRECTIVES,
                MdCheckbox,
-               JobsComponent ]  // include jobs component to listen for event emitter
+               Fabs ]  // include jobs component to listen for event emitter
 })
 
 export class SidebarRightComponent {
 
- public subscription: Subscription;
+  public subscription: Subscription;
+
+  action: string = 'Create';
 
   constructor(private __sharedService: SharedService) {
             this.subscription = this.__sharedService.
-                                      testCall$.subscribe(m => {
+                                      form$.subscribe(form => {
+                                          this.action = form;
                                           this.showSidebarRight = true;
-                                          console.log('received call');
+                                          console.log('received call: ' + form);
                                       });
   }
 
@@ -38,6 +43,12 @@ export class SidebarRightComponent {
 
   addEntity(job) {
     console.log(job);
+  }
+
+  create(type) {
+    console.log(type);
+    this.toggleSidebarRight(true);
+    this.action = 'create';
   }
 
   onSubmit(value: any) {
