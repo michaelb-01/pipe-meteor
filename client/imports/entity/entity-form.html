@@ -1,0 +1,44 @@
+<form #form="ngForm" (submit)="onSubmit(form.value)" id="form" autocomplete="off">
+
+  {{entity?.name}}
+
+  <div class="chips">
+    <div *ngFor="let obj of sel" class="chipWrapper">
+      <div class="chip">
+        {{obj.name}}
+        <span class="chip-delete" (click)="removeTask()">
+          <i class="material-icons">close</i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <md-input placeholder="Artists" 
+            [(ngModel)]="query" 
+            (ngModelChange)=filterUsers() 
+            (keydown.tab)=handleTab($event) 
+            name="users" 
+            autocomplete="off">
+  </md-input>
+
+  <div *ngFor="let user of filteredUsers">
+    {{user.name}}
+  </div>
+
+  <div class="chips">
+    <div *ngFor="let user of selectedUsers; let i = index" class="chipWrapper">
+      <div class="chip">
+        {{user.name}}
+        <span class="chip-delete" (click)="removeUser(i)">
+          <i class="material-icons">close</i>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="pageNum light">
+  1/1
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

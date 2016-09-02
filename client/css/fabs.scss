@@ -17,28 +17,6 @@
     }
   }
   li {
-    .fab {
-      border-radius: 50%;
-      margin: 1em;
-      box-shadow: -1px 1px 5px 0 rgba(0, 0, 0, 0.3);
-      background-color: rgba(46, 67, 80, 0.78);
-      color:white;
-      position: relative;
-      -webkit-transition: all .2s ease-out;
-      transition: all .2s ease-out;
-      &.job {
-        background-color: #7aa5cc;
-      }
-      &.task {
-        background-color: #86af96;
-      }
-      &.version {
-        background-color: #f1a03c;
-      }
-      &.note {
-        background-color: #d84b58;
-      }
-    }
     &:not(:last-child) > .fab {
       //-webkit-transform: translateY(28px);
       //-ms-transform: translateY(28px);
@@ -51,12 +29,54 @@
       box-shadow: -1px 1px 10px 0 rgba(0, 0, 0, 0.5);
       color:black;
     }
-    i {
-      padding:0.4em;
-      -webkit-transition: all .2s ease-out;
-      transition: all .2s ease-out;
-    }
   }
+}
+
+.fab {
+  border-radius: 50%;
+  margin: 1em;
+  box-shadow: -1px 1px 5px 0 rgba(0, 0, 0, 0.3);
+  background-color: rgba(46, 67, 80, 0.78);
+  color:white;
+  position: relative;
+  -webkit-transition: all .2s ease-out;
+  transition: all .2s ease-out;
+  &.job {
+    background-color: #7aa5cc;
+  }
+  &.entity {
+    background-color: #86af96;
+  }
+  &.version {
+    background-color: #f1a03c;
+  }
+  &.note {
+    background-color: #d84b58;
+  }
+  &.edit {
+    position: absolute;
+    bottom: 0;
+    left: -150px;
+    margin: 2em;
+    border-radius: 50%;
+  }
+  i {
+    padding:0.4em;
+    -webkit-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+  }
+}
+
+.numSelected {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background-color: #ff0d0d;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 50%;
 }
 
 [tooltip]:before {

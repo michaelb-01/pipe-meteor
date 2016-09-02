@@ -5,6 +5,8 @@ import { Entities } from '../../../collections/entities';
 import { VersionsComponent } from '../version/versions';
 import { MeteorComponent } from 'angular2-meteor';
 
+import { EntityService } from './entity.service';
+
 //import { Mongo } from 'meteor/mongo';
 //import { Meteor } from 'meteor/meteor';
 //import { JobService } from './job.service';
@@ -13,7 +15,8 @@ import { MeteorComponent } from 'angular2-meteor';
   selector: 'entity',
   templateUrl: '/client/imports/entity/entity.html',
   directives: [ ROUTER_DIRECTIVES,
-                VersionsComponent ]
+                VersionsComponent ],
+  providers: [ EntityService ]
 })
 
 export class EntityComponent  extends MeteorComponent {
@@ -22,7 +25,8 @@ export class EntityComponent  extends MeteorComponent {
 
   subscription: any;
 
-  constructor(private route: ActivatedRoute, private ngZone: NgZone) {
+  constructor(private route: ActivatedRoute,
+              private _entityService: EntityService ) {
     super();
   }
 
@@ -31,11 +35,20 @@ export class EntityComponent  extends MeteorComponent {
     this.route.params.subscribe((params) => {
       this.entityId = params['entityId'];
 
-      this.subscribe('entities', () => {
-        this.entity = Entities.findOne({'_id':this.entityId});
-      }, true);
+      this._entityService.getJobById(this.entityId);
 
-      console.log(this.entity);
+      this.subscription = this._entityService.entity$.subscribe(entity => {
+        if (!entity) return;   // don't forget this, because you may subscribe the data before you got data from the server
+
+        this.entity = entity;
+        // do other things
+      });
     });
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
+
+

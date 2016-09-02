@@ -1,0 +1,17 @@
+.chips {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.chip {
+  background-color: #d6d6d6;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 15px;
+  margin:2px;
+}
+
+.chip-delete i {
+  font-size: 16px; 
+  vertical-align: bottom;
+}

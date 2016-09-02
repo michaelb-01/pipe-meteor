@@ -1,15 +1,53 @@
-<form [ngFormModel]="jobForm" #f="ngForm" (submit)="addJob(f.value)">
-  <label>Name</label>
-  <input type="text" ngControl="name">
-  
-  <label>Client</label>
-  <input type="text" ngControl="client">
-  
-  <label>Agency</label>
-  <input type="text" ngControl="agency">
+<form #form="ngForm" (submit)="onSubmit(form.value)" id="form">
 
-  <label>Public</label>
-  <input type="checkbox" ngControl="public">
+{{job?.name}}
 
-  <button>Add</button>
+<div *ngFor="let user of users">
+{{users.name}}
+</div>
+
+
+<div class="formWrapper">
+  <div class="formCarousel" [ngClass]="{slide: slide}">
+    <div class="page1">
+      <md-input placeholder="Name" [(ngModel)]="job.name" name="name" required></md-input>
+      {{job.name}}
+      <br>
+      <md-input placeholder="Client" [(ngModel)]="job.client" name="client"></md-input>
+      <br>
+      <md-input placeholder="Agency" [(ngModel)]="job.agency" name="agency"></md-input>
+      <br>
+      <md-input placeholder="ThumbUrl" [(ngModel)]="job.thumbUrl" name="thumbUrl"></md-input>
+      <br>
+      <div class="input-half">
+        <md-input placeholder="Start Date" [(ngModel)]="job.startDate" name="startDate"></md-input>
+        <md-input placeholder="End Date" [(ngModel)]="job.endDate" name="endDate"></md-input>
+      </div>
+      <br>
+      <br>
+      <md-checkbox [checked]="true" [(ngModel)]="job.public" name="public">
+        Public
+      </md-checkbox>  
+      <br>
+
+      <div class="pager" (click)="slideCarousel(true)">MORE>></div>
+    </div>
+
+    <div class="page2">
+      <md-input placeholder="Director" [(ngModel)]="job.director" name="director"></md-input>
+      <br>
+      <md-input placeholder="VFX Supervisor" [(ngModel)]="job.vfxSup" name="vfxSup"></md-input>
+      <br>
+      <md-input placeholder="Producer" [(ngModel)]="job.producer" name="producer"></md-input>
+
+      <div class="pager" (click)="slideCarousel(false)"><<LESS</div>
+    </div>
+  </div>
+</div>
+
+  <div class="pageNum light">
+  1/2
+  </div>
+
+  <button type="submit">Submit</button>
 </form>

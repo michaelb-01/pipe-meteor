@@ -108,6 +108,21 @@ $sidebarWidth: 250px;
   margin: 0 20%;
 }
 
+.input-half {
+  margin-left: -4%;
+  md-input {
+    width:42%;
+    margin: 0 4%;
+  }
+}
+
+.pageNum {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 10px;
+}
+
 // INPUT
 md-input {
   width: 100%;

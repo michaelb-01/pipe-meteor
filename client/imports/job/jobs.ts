@@ -6,9 +6,9 @@ import { JobService } from './job.service';
 
 import { Meteor } from 'meteor/meteor';
 
-import {Fabs} from '../fabs/fabs';
+import {Fabs} from '../shared/fabs/fabs';
 
-import {SharedService} from '../../sharedService';
+import {SharedService} from '../shared/shared.service';
 
 //const fs = require('fs');
 

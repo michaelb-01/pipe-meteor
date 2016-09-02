@@ -7,6 +7,8 @@ import { MeteorComponent } from 'angular2-meteor';
 
 import { Tracker } from 'meteor/tracker';
 
+import { SharedService } from '../shared/shared.service';
+
 @Component({
   selector: 'entities',
   templateUrl: '/client/imports/entity/entities.html',
@@ -29,6 +31,7 @@ export class EntitiesComponent  extends MeteorComponent {
   shots = [];
 
   constructor(private _entityService: EntityService,
+              private _sharedService: SharedService,
               private route: ActivatedRoute) { 
     super();
 
@@ -64,26 +67,30 @@ export class EntitiesComponent  extends MeteorComponent {
     });
   }
 
-  ngOnInit() {
+  ngOnInit() {}
 
+  selected: string[] = [];
+  select(entity) {
+    entity.selected = !entity.selected;  // toggle selected attribute
 
+    var idx = this.selected.indexOf(entity._id);
+
+    if (idx > -1) {
+      this.selected.splice(idx, 1);
+    }
+    else {
+      this.selected.push(entity._id);
+    }
+
+    console.log(this.selected);
+
+    this._sharedService.updateSel({"id":entity._id, "name":entity.name}, 'entity');
+  }
+
+  editSelected() {
+
+    console.log('edit selected');
   }
 }
-
-/*
-
-          console.log(this.job);
-
-          if (this.job != null) {
-            this.assets = this.job.entities.filter(function (el) {
-              return el.type === 'asset';
-            });
-
-            this.shots = this.job.entities.filter(function (el) {
-              return el.type === 'shot';
-            });
-          }
-
-*/
 
 

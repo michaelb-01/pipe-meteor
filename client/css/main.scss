@@ -110,6 +110,7 @@ button {
 [x-ng-click] {
     cursor: pointer;
 }
+
 app {
   display: flex;
 	display: -webkit-flex;
@@ -143,6 +144,7 @@ users {
 }
 
 #contentWrapper {
+  position: relative;
   width:100%;
   margin: 0 40px;
 }

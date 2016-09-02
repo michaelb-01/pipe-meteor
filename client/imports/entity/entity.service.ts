@@ -8,6 +8,9 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class EntityService extends MeteorComponent{
   entities: Mongo.Cursor<Entity>;
   entities$ = new BehaviorSubject<Mongo.Cursor<Entity>>(null);
+
+  entity$ = new BehaviorSubject<Entity>(null);
+
   subscription: any;
 
   constructor() {
@@ -19,9 +22,16 @@ export class EntityService extends MeteorComponent{
   }
 
   getJobs() {
-    this.subscription = this.subscribe('entities', () => {
+    this.subscribe('entities', () => {
       this.entities = Entities.find();
       this.entities$.next(Entities.find());
     }, true); // set autoBind to true to auto-update Angular
   }
+
+  getJobById(id) {
+    this.subscribe('entities', () => {
+      this.entity$.next(Entities.findOne({"_id":id}));
+    }, true); // set autoBind to true to auto-update Angular
+  }
+
 }

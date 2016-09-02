@@ -1,7 +1,7 @@
 <h5>Assets ({{assets.length}})</h5>
 
 <div class="cards assets">
-  <div *ngFor="let asset of assets" class="card">
+  <div *ngFor="let asset of assets" class="card" [ngClass]="{selected: asset.selected}" (click)="select(asset)">
     <div class="card-thumb">
       <img src="/img/{{asset?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
@@ -17,7 +17,7 @@
 <h5>Shots ({{shots.length}})</h5>
 
 <div class="cards shots">
-  <div *ngFor="let shot of shots" class="card">
+  <div *ngFor="let shot of shots" class="card" [ngClass]="{selected: shot.selected}" (click)="select(shot)">
     <div class="card-thumb">
       <img src="/img/{{shot?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
@@ -30,4 +30,10 @@
   </div>
 </div>
 
+<div class="fab entity edit" *ngIf="selected.length>0" (click)="editSelected()">
+  <div>
+    <div class="numSelected">{{selected.length}}</div>
+    <i class="material-icons">mode_edit</i>
+  </div>
+</div>
 

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 
 @Component({
   selector: 'sidebar-left',
-  templateUrl: '/client/imports/sidebar-left/sidebar-left.html'
+  templateUrl: '/client/imports/shared/sidebar-left/sidebar-left.html'
 })
 
 export class SidebarLeftComponent {

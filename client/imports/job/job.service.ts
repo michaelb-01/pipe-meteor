@@ -8,7 +8,11 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 export class JobService extends MeteorComponent{
   jobs: Mongo.Cursor<Job>;
   jobs$ = new BehaviorSubject<Mongo.Cursor<Job>>(null);
+
+  job$ = new BehaviorSubject<Job>(null);
+
   subscription: any;
+  subscription2: any;
 
   constructor() {
     // run the inherited component - MeteorComponent in this case
@@ -25,7 +29,13 @@ export class JobService extends MeteorComponent{
     }, true); // set autoBind to true to auto-update Angular
   }
 
-  addJob() {
-    
+  getJobById(id) {
+    this.subscription2 = this.subscribe('jobs', () => {
+      this.job$.next(Jobs.findOne({"_id":id}));
+    }, true); // set autoBind to true to auto-update Angular
+  }
+
+  create(job) {
+    Jobs.insert(job);
   }
 }

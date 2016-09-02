@@ -1,17 +1,15 @@
 import 'reflect-metadata';
 import { Component, provide } from '@angular/core';
 import { bootstrap } from 'angular2-meteor-auto-bootstrap';
-import {disableDeprecatedForms, provideForms} from '@angular/forms'
+import { disableDeprecatedForms, provideForms} from '@angular/forms'
 
 import { provideRouter, RouterConfig, ROUTER_DIRECTIVES } from '@angular/router';
 import { APP_BASE_HREF } from '@angular/common';
-import { PartiesList } from './imports/parties-list/parties-list.ts';
-import { PartyDetails } from './imports/party-details/party-details.ts';
 
-// import components
-import { TopNavComponent} from './imports/top-nav/top-nav.ts';
-import { SidebarLeftComponent} from './imports/sidebar-left/sidebar-left.ts';
-import { SidebarRightComponent} from './imports/sidebar-right/sidebar-right.ts';
+// shared components
+import { TopNavComponent} from './imports/shared/top-nav/top-nav.ts';
+import { SidebarLeftComponent} from './imports/shared/sidebar-left/sidebar-left.ts';
+import { SidebarRightComponent} from './imports/shared/sidebar-right/sidebar-right.ts';
 
 // job
 import { JobsComponent } from './imports/job/jobs.ts';
@@ -28,15 +26,16 @@ import { VersionsComponent } from './imports/version/versions.ts';
 import { UsersComponent } from './imports/user/users.ts';
 
 // shared service
-import {SharedService} from './sharedService';
+import { SharedService } from './imports/shared/shared.service';
+import { JobSharedService } from './imports/shared/job-shared.service';
 
 @Component({
   selector: 'app',
   templateUrl: '/client/app.html',
-  directives: [TopNavComponent,
-               SidebarLeftComponent,
-               SidebarRightComponent,
-               ROUTER_DIRECTIVES]
+  directives: [ TopNavComponent,
+                SidebarLeftComponent,
+                SidebarRightComponent,
+                ROUTER_DIRECTIVES ]
 })
 class Pipe {}
 
@@ -57,6 +56,7 @@ const APP_ROUTER_PROVIDERS = [
 
 bootstrap(Pipe, [
   SharedService,
+  JobSharedService,
   APP_ROUTER_PROVIDERS, 
   disableDeprecatedForms(),
   provideForms(),

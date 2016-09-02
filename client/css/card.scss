@@ -3,6 +3,8 @@
 	display: -webkit-flex;
   justify-content: center;
 	-webkit-justify-content: center;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
 }
 
 .card {
@@ -85,9 +87,14 @@
   .card-title {
     text-align: center;
   }
+  .card-content-wrapper {
+    position: relative;
+    flex: 1;
+    height: 50px;
+    //padding: 10px;
+  }
   .card-content {
-    flex: 1 0 auto;
-    padding: 0 10px 10px 10px;
+    padding: 10px;
   }
   .card-image {
     position: relative;
@@ -120,14 +127,16 @@
     }
   }
   .notes {
-    max-height: 0;
+    position:absolute;
+    height: 100%;
+    width: 50%;
+    left:50%;
+    top:0;
     overflow: hidden;
-    -webkit-transition: max-height 0.8s;
-    -moz-transition: max-height 0.8s;
-    transition: max-height 0.8s;
-    &.open {
-      max-height: 100px;
-    }
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    background-color: #f7f7f7;
   }
   .card-table {
     max-height: 100px;
@@ -144,6 +153,28 @@
       border: none;
     }
   }
+}
+
+.carousel {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  transition: all 0.5s;
+  left: 0;
+  &.open {
+    left:-100%;
+  }
+}
+
+.description {
+  width: 50%;
+}
+
+.card-content-wrapper {
+  position: relative;
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .roles li {
@@ -172,6 +203,9 @@
   }
   & > * {
     text-align: center;
+  }
+  a {
+    z-index: 999;
   }
 }
 

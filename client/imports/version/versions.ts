@@ -3,7 +3,7 @@ import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Versions } from '../../../collections/versions';
 import { Mongo } from 'meteor/mongo';
 import { MeteorComponent } from 'angular2-meteor';
-import {SharedService} from '../../sharedService';
+import { SharedService } from '../shared/shared.service';
 
 @Component({
   selector: 'versions',
@@ -16,7 +16,6 @@ export class VersionsComponent  extends MeteorComponent {
   subscription: any;
 
   entityId: string;
-  selected: string[] = [];
 
   constructor(private route: ActivatedRoute,
               private _sharedService: SharedService) { 
@@ -34,12 +33,12 @@ export class VersionsComponent  extends MeteorComponent {
     });
   }
 
-  showNotes = true;
-  toggleNotes(el,newState) {
-    this.showNotes = newState;
-    console.log(el);
+  toggleNotes(version) {
+    version.showNotes = !version.showNotes;
+    console.log('toggle notes');
   }
 
+  selected: string[] = [];
   select(version) {
     //version.selected = !version.selected;  // toggle selected attribute
 
@@ -52,9 +51,8 @@ export class VersionsComponent  extends MeteorComponent {
       var idx = this.selected.indexOf(version._id);
       this.selected.splice(idx, 1);
     }
-
-    
   }
+
 
 
   editSelected() {

@@ -1,0 +1,64 @@
+<nav class="sidebar right" [ngClass]="{closed: !showSidebarRight}">
+  <ul class="scrollbar">
+    <li>
+      <p class="title">{{action | uppercase}} :: {{type | uppercase}}</p>
+    </li>
+
+    <div [ngSwitch]="type">
+      <div *ngSwitchCase="'job'">
+        <job-form [action]="'edit'"></job-form>
+      </div>
+
+      <div *ngSwitchCase="'entity'">
+        <entity-form [action]="'assign'" [sel]="selected"></entity-form>
+      </div>
+
+      <div *ngSwitchCase="'version'">
+        version sadhsaf
+      </div>
+
+      <div *ngSwitchCase="'note'">
+        note adsjhsdakh
+      </div>
+    </div>
+  </ul>
+
+  <button (click)="toggleSidebarRight(!showSidebarRight)" [ngClass]="{active: showSidebarRight}" class="burger left burger--htx">
+    <span></span>
+    <span></span>
+  </button>
+
+  <div class="fab entity edit" *ngIf="selected.length>0" (click)="editSelected()">
+    <div>
+      <div class="numSelected">{{selected.length}}</div>
+      <i class="material-icons">mode_edit</i>
+    </div>
+  </div>
+
+  <fabs>
+    <li>
+      <div class="fab note" tooltip="Note">
+        <i class="material-icons">sort</i>
+      </div>
+    </li>
+    <li>
+      <div class="fab version" tooltip="Version">
+        <i class="material-icons">image</i>
+      </div>
+    </li>
+    <li>
+      <div class="fab entity" tooltip="Task" (click)="create('task')">
+        <i class="material-icons">assignment</i>
+      </div>
+    </li>
+    <li>
+      <div class="fab job" tooltip="Job" (click)="create('job')">
+        <i class="material-icons">dashboard</i>
+      </div>
+    </li>
+  </fabs>
+</nav>
+
+
+
+

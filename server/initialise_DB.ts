@@ -25,8 +25,15 @@ function createUser(name) {
 }
 
 export function createUsers () {
-  for (var i = 0; i < users.length; i++) {
-    createUser(users[i]);
+ if (Users.find().count() === 0) {
+    console.log('load default users');
+    
+    for (var i = 0; i < users.length; i++) {
+      createUser(users[i]);
+    }
+  }
+  else {
+    console.log('aready found users in database');
   }
 }
 
@@ -40,7 +47,13 @@ function createVersion(jobId, jobName, entityId, entityName) {
 
   var notes = [];
   for (var i=0;i<Math.floor(Math.random() * maxNotes);i++) {
-    notes.push(Fake.sentence(Math.floor(Math.random() * 8)));
+    notes.push({
+      "author":{
+        "id":'',
+        "name":'Mike Battcock'
+      },
+      "body": Fake.sentence(Math.floor(Math.random() * 8))
+    });
   }
 
   var version = {
