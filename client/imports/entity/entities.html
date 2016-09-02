@@ -1,7 +1,11 @@
+<search-box (update)="term = $event"></search-box>
+
+<div>Filter: <input [(ngModel)]="query"></div>
+
 <h5>Assets ({{assets.length}})</h5>
 
 <div class="cards assets">
-  <div *ngFor="let asset of assets" class="card" [ngClass]="{selected: asset.selected}" (click)="select(asset)">
+  <div *ngFor="let asset of assets | filter:term" class="card" [ngClass]="{selected: asset.selected}" (click)="select(asset)">
     <div class="card-thumb">
       <img src="/img/{{asset?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">

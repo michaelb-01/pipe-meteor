@@ -9,11 +9,16 @@ import { Tracker } from 'meteor/tracker';
 
 import { SharedService } from '../shared/shared.service';
 
+import { FilterPipe } from '../shared/filter.pipe';
+import { SearchBox } from '../shared/search_box';
+
 @Component({
   selector: 'entities',
   templateUrl: '/client/imports/entity/entities.html',
-  directives: [ ROUTER_DIRECTIVES ],
-  providers: [ EntityService ]
+  directives: [ ROUTER_DIRECTIVES,
+                SearchBox ],
+  providers: [ EntityService ],
+  pipes: [ FilterPipe ]
 })
 
 export class EntitiesComponent  extends MeteorComponent {
