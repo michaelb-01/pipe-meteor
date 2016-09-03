@@ -2,17 +2,22 @@
 
   {{entity?.name}}
 
-  <div class="chips">
-    <div *ngFor="let obj of sel" class="chipWrapper">
-      <div class="chip">
-        {{obj.name}}
-        <span class="chip-delete" (click)="removeTask()">
-          <i class="material-icons">close</i>
-        </span>
+  <div class="formContent">
+
+    <div class="chips tasks">
+      <div *ngFor="let obj of sel" class="chipWrapper">
+        <div class="chip">
+          {{obj.name}}
+          <span class="chip-delete" (click)="removeTask()">
+            <i class="material-icons">close</i>
+          </span>
+        </div>
       </div>
     </div>
+
   </div>
 
+<!--
   <md-input placeholder="Artists" 
             [(ngModel)]="query" 
             (ngModelChange)=filterUsers() 
@@ -20,25 +25,45 @@
             name="users" 
             autocomplete="off">
   </md-input>
+-->
 
-  <div *ngFor="let user of filteredUsers">
-    {{user.name}}
+  <div class="search-box">
+    <i class="material-icons">search</i>
+    <input type="text" id="search-box-input"
+                      placeholder="Search"
+                      [(ngModel)]="query" 
+                      (ngModelChange)=filterUsers() 
+                      (keydown.tab)=handleTab($event) 
+                      (keydown)="handleArrow($event.keyCode)"
+                      name="users">
   </div>
 
-  <div class="chips">
-    <div *ngFor="let user of selectedUsers; let i = index" class="chipWrapper">
-      <div class="chip">
-        {{user.name}}
-        <span class="chip-delete" (click)="removeUser(i)">
-          <i class="material-icons">close</i>
-        </span>
+  <div class="formContent">
+
+    <div>
+      <ul class="search-results">
+        <li *ngFor="let user of filteredUsers; let i = index" class="search-result-item" [ngClass]="{selected: i == selectedItem}">
+          <span>{{user.name}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="chips users">
+      <div *ngFor="let user of selectedUsers; let i = index" class="chipWrapper">
+        <div class="chip">
+          {{user.name}}
+          <span class="chip-delete" (click)="removeUser(i)">
+            <i class="material-icons">close</i>
+          </span>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="pageNum light">
-  1/1
-  </div>
+    <div class="pageNum light">
+    1/1
+    </div>
 
-  <button type="submit">Submit</button>
+    <button type="submit">Submit</button>
+
+  </div>
 </form>

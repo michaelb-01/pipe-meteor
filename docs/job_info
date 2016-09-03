@@ -1,0 +1,21 @@
+client
+agency
+job name
+type (commercial, music video, tv, film)
+medium (web, tv, cinema, app etc.)
+
+director
+vfx supervisor
+producer
+
+description
+
+spot length 
+frame rate
+frame dimensions
+aspect ratio
+working pixel aspect ratio (e.g. anamorphic)
+start date 
+end date
+
+camera/lens info

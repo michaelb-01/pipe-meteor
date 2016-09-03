@@ -91,6 +91,12 @@ hr {
     border-top: 1px dotted #1f2d48 !important;
 }
 
+hr.hr-thin {
+    width: 100%;
+    margin: 0;
+    border-color: #ddd !important;
+}
+
 p {
   padding: 0.7em 0;
 }

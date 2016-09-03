@@ -24,6 +24,7 @@ export class EntityFormComponent extends MeteorComponent {
   users: User[];
   filteredUsers: User[] = [];
   selectedUsers: User[] = [];
+  selectedUsersID: string;
 
   public query = '';
 
@@ -53,21 +54,22 @@ export class EntityFormComponent extends MeteorComponent {
 
     if (this.query !== '') {
       this.users.forEach((user) => {
-        console.log('check: ' + user.name);
-        console.log(user.name.toLowerCase().indexOf(this.query.toLowerCase()));
-
+        if (user.name.toString().toLowerCase().indexOf(this.query.toString().toLowerCase()) !== -1) {
         // begins with
-         if (user.name.toLowerCase().substring(0, this.query.length) == this.query.toLowerCase()) {
-          this.filteredUsers.push(user);
-        }
+        //if (user.name.toLowerCase().substring(0, this.query.length) == this.query.toLowerCase()) {
+          console.log(this.selectedUsers);
+          let allowed = 1;
 
-        // string contains
-        /*
-        if (user.name.toLowerCase().indexOf(this.query.toLowerCase()) > -1) {
-          console.log('found!');
-          this.filteredUsers.push(user);
+          this.selectedUsers.forEach((selectedUser) => {
+            if (user._id == selectedUser._id) {
+              allowed = 0;
+            }
+          });
+
+          if (allowed == 1) {
+            this.filteredUsers.push(user);
+          }
         }
-        */
       });
     }
   }
@@ -87,10 +89,12 @@ export class EntityFormComponent extends MeteorComponent {
   }
 
   handleTab(event) {
+    console.log('tab');
     event.preventDefault();
 
     if (this.filteredUsers.length > 0) {
-      this.addUser(this.filteredUsers[0]);
+      this.addUser(this.filteredUsers[this.selectedItem]);
+      this.selectedItem = 0;
     }
 
     this.query = '';
@@ -99,10 +103,26 @@ export class EntityFormComponent extends MeteorComponent {
 
   removeUser(index) {
     this.selectedUsers.splice(index,1);
+    this.filterUsers();  // update filtered users
+    document.getElementById("search-box-input").focus();  // set focus back to input
   }
 
   slide = false;
   slideCarousel(val) {
     this.slide = val;
+  }
+
+  selectedItem = 0;
+  handleArrow(key) {
+    //event.preventDefault();
+
+    if (key == 40) {
+      this.selectedItem = Math.min(this.selectedItem  + 1, this.filteredUsers.length);
+    }
+    else if (key == 38) {
+      this.selectedItem = Math.max(this.selectedItem -1, 0);
+    }
+
+    console.log(this.selectedItem);
   }
 }

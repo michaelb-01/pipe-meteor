@@ -10,6 +10,8 @@ import { Tracker } from 'meteor/tracker';
 import { SharedService } from '../shared/shared.service';
 
 import { FilterPipe } from '../shared/filter.pipe';
+import { FirstLetterPipe } from '../shared/first-letter.pipe';
+
 import { SearchBox } from '../shared/search_box';
 
 @Component({
@@ -18,7 +20,7 @@ import { SearchBox } from '../shared/search_box';
   directives: [ ROUTER_DIRECTIVES,
                 SearchBox ],
   providers: [ EntityService ],
-  pipes: [ FilterPipe ]
+  pipes: [ FilterPipe, FirstLetterPipe ]
 })
 
 export class EntitiesComponent  extends MeteorComponent {
@@ -87,7 +89,7 @@ export class EntitiesComponent  extends MeteorComponent {
       this.selected.push(entity._id);
     }
 
-    console.log(this.selected);
+    console.log(entity);
 
     this._sharedService.updateSel({"id":entity._id, "name":entity.name}, 'entity');
   }
@@ -95,6 +97,11 @@ export class EntitiesComponent  extends MeteorComponent {
   editSelected() {
 
     console.log('edit selected');
+  }
+
+  showDetails = false;
+  showTaskDetails() {
+    this.showDetails = !this.showDetails;
   }
 }
 

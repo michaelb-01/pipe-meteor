@@ -3,7 +3,7 @@ import { Entities } from '../collections/entities.ts';
 import { Versions } from '../collections/versions.ts';
 import { Users } from '../collections/users.ts';
 
-var users = ['Mike Battcock', 'Ben Cantor', 'Sam Osbourne'];
+var users = ['Mike Battcock', 'Mike Skrgatic', 'Ben Cantor', 'Sam Osbourne'];
 
 function createUser(name) {
   var user = {
@@ -78,8 +78,25 @@ function createVersion(jobId, jobName, entityId, entityName) {
   var versionId = Versions.insert(version);
 }
 
+
 function createEntity(jobId, jobName) {
   console.log('create entity in ' + jobId);
+
+  var taskTypes = ['fx','model','light','comp','texture','track'];
+  var tasks = [];
+
+  for (var i=0;i<Math.floor(Math.random() * taskTypes.length);i++) {
+    var taskUsers = [];
+    for (var j=0;j<Math.floor(users.length);j++) {
+      if (Math.random() > 0.5) {
+        taskUsers.push(users[j]); 
+      }
+    }
+    tasks.push({
+      "type":taskTypes[i],
+      "users":taskUsers
+    });
+  }
 
   var entity = {
     'job': {
@@ -88,6 +105,7 @@ function createEntity(jobId, jobName) {
     },
     'name': Fake.sentence(1),
     'type': types[Math.floor((Math.random() * types.length))],
+    'tasks': tasks,
     'status': 'active',
     'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
     'description': Fake.sentence(7),
