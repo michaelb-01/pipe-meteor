@@ -1,18 +1,24 @@
 <search-box (update)="term = $event"></search-box>
 
-<button (click)="showTaskDetails()"></button>
+<button (click)="showTaskDetails()">Show Tasks</button>
 
 <h5>Assets ({{assets.length}})</h5>
 
 <div class="cards assets">
-  <div *ngFor="let asset of assets | filter:term" class="card" [ngClass]="{selected: asset.selected}" (click)="select(asset)">
+  <div *ngFor="let asset of assets | filter:term; let assetId = index;" class="card">
     <div class="card-details" [ngClass]="{show: showDetails}">
+      <div class="card-details-title bold">{{asset.name}}</div>
       <ul class="task-list">
-        <li *ngFor="let task of asset.tasks" class="task-item">
-          {{task.type}}
+        <li *ngFor="let task of asset.tasks; let taskId = index;" 
+           (click)="select(asset,task,assetId,taskId)" 
+           class="task-item"
+           [ngClass]="{selected: task.selected}">
+          <span class="type">
+            {{task.type}} 
+          </span>
           <div class="chips chips-small">
             <div *ngFor="let taskUser of task.users" class="chip">
-              {{taskUser | firstLetter}}
+              {{taskUser.name | firstLetter}}
             </div>
           </div>
           <hr class="hr-thin">
@@ -47,10 +53,18 @@
   </div>
 </div>
 
-<div class="fab entity edit" *ngIf="selected.length>0" (click)="editSelected()">
-  <div>
-    <div class="numSelected">{{selected.length}}</div>
-    <i class="material-icons">mode_edit</i>
+<div style="position: absolute; bottom: 0; right: 0;">
+  <div class="fab entity edit" (click)="editSelected()">
+    <div>
+      <div class="numSelected">{{selected.length}}</div>
+      <i class="material-icons">mode_edit</i>
+    </div>
   </div>
 </div>
+
+<div id="entity-form-container">
+  <p class="title">ASSIGN TASKS</p>
+  <entity-form [sel]="selected" (onAssign)="onAssign($event)"></entity-form>
+</div>
+
 

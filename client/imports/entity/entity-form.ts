@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Component, Input, NgZone } from '@angular/core';
+import { Component, Input, Output, EventEmitter, NgZone } from '@angular/core';
 
 import { MD_INPUT_DIRECTIVES } from '@angular2-material/input/input';
 import { MdCheckbox} from '@angular2-material/checkbox/checkbox';
@@ -37,6 +37,8 @@ export class EntityFormComponent extends MeteorComponent {
   @Input() action: string;
   @Input() sel;
 
+  @Output() onAssign = new EventEmitter();
+
   ngOnInit() {
     this._userService.getUsers();
 
@@ -50,14 +52,11 @@ export class EntityFormComponent extends MeteorComponent {
   filterUsers() {
     this.filteredUsers = [];
 
-    console.log('query: ' + this.query);
-
     if (this.query !== '') {
       this.users.forEach((user) => {
         if (user.name.toString().toLowerCase().indexOf(this.query.toString().toLowerCase()) !== -1) {
         // begins with
         //if (user.name.toLowerCase().substring(0, this.query.length) == this.query.toLowerCase()) {
-          console.log(this.selectedUsers);
           let allowed = 1;
 
           this.selectedUsers.forEach((selectedUser) => {
@@ -89,7 +88,6 @@ export class EntityFormComponent extends MeteorComponent {
   }
 
   handleTab(event) {
-    console.log('tab');
     event.preventDefault();
 
     if (this.filteredUsers.length > 0) {
@@ -122,7 +120,15 @@ export class EntityFormComponent extends MeteorComponent {
     else if (key == 38) {
       this.selectedItem = Math.max(this.selectedItem -1, 0);
     }
+  }
 
-    console.log(this.selectedItem);
+  assign() {
+    console.log('assign');
+    this.onAssign.emit({mode:true, users:this.selectedUsers});
+  }
+
+  unassign() {
+    console.log('unassign');
+    this.onAssign.emit({mode:false, users:this.selectedUsers});
   }
 }

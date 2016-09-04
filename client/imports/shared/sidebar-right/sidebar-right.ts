@@ -30,6 +30,10 @@ export class SidebarRightComponent {
 
   selected: any[] = [];
 
+  showSidebarRight = false; 
+
+
+
   constructor(private _sharedService: SharedService) {
     this.typeSubscription = this._sharedService.type$.subscribe(type => {
                                   this.type = type;
@@ -38,19 +42,22 @@ export class SidebarRightComponent {
 
     this.selSubscription = this._sharedService.sel$.subscribe(sel => {
                               this.selected = sel;
-                              console.log(sel);
+
+                              if (this.selected.length > 0) {
+                                this.showSidebarRight = this.selected.length > 0;
+                                this.action = 'edit';
+                              }
+                              else {
+                                this.showSidebarRight = false;
+                              }
                             });
   }
-
-  showSidebarRight = false;    
+   
   toggleSidebarRight(newState) {
     this.showSidebarRight = newState;
-
-    console.log(this.showSidebarRight);
   }
 
   create(type) {
-    console.log(type);
     this.toggleSidebarRight(true);
     this.action = 'create';
     this.type = type;

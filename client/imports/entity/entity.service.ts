@@ -28,10 +28,37 @@ export class EntityService extends MeteorComponent{
     }, true); // set autoBind to true to auto-update Angular
   }
 
-  getJobById(id) {
+  getEntitiesById(id) {
     this.subscribe('entities', () => {
       this.entity$.next(Entities.findOne({"_id":id}));
     }, true); // set autoBind to true to auto-update Angular
   }
+
+  getJobEntities(jobId) {
+    this.subscribe('entities', () => {
+      this.entities$.next(Entities.find({ "job.jobId":jobId }));
+    }, true);
+  }
+
+  test() {
+    console.log('entity service working');
+  }
+
+  assignUser(entityId, taskNum, userName) {
+    // pull element (user) from array 
+    var modifier = { $push: {} };
+    modifier.$push['tasks.' + taskNum + '.users'] = { "name":userName };
+
+    Entities.update( { "_id": entityId}, modifier );
+  }
+
+  unassignUser(entityId, taskNum, userName) {
+    // pull element (user) from array 
+    var modifier = { $pull: {} };
+    modifier.$pull['tasks.' + taskNum + '.users'] = { "name":userName };
+
+    Entities.update( { "_id": entityId}, modifier );
+  }
+              
 
 }

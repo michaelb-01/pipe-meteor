@@ -14,16 +14,15 @@ export class SharedService {
   selected:string[] = [];
 
   updateSel(obj, type) {
+    // iterate over selected items and check if the given item is in the array
     var found = false;
     var i;
     for(i = 0; i < this.selected.length; i++) {
-        if (this.selected[i].id == obj.id) {
+        if (this.selected[i].id + this.selected[i].type == obj.id + obj.type) {
             found = true;
             break;
         }
     }
-
-    console.log(found);
 
     if (found) {
       this.selected.splice(i, 1);

@@ -166,12 +166,24 @@
   &.show {
     bottom: 0;
   }
+  .card-details-title {
+    text-align: center;
+    font-weight: bold;
+    margin:3px 0;
+  }
   .task-list {
     .task-item {
       padding: 0 3px;
       line-height: 22px;
       &:hover {
         background-color: #ffd7d0;
+      }
+      &.selected {
+        //box-shadow: 0 1px 10px 3px rgba(67, 155, 165, 0.98);
+        background-color: #ff0d0d;
+        .type {
+          color: white;
+        }
       }
     }
   }

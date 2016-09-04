@@ -1,5 +1,20 @@
+#entity-form-container {
+  position: absolute;
+  top: 0;
+  right: -40px;
+  height: 100%;
+  width: 200px;
+  background-color: white;
+  z-index: 999;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
 .formWrapper {
   overflow: hidden;
+}
+
+.formContent {
+  margin: 0 10%;
 }
 
 .formCarousel {
@@ -32,7 +47,7 @@
 .search-box {
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   padding: 2px;
-  margin: 10px 20% 0 20%;
+  //margin: 10px 20% 0 20%;
   background: none;
 
   input {

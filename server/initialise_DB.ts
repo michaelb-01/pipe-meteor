@@ -89,7 +89,7 @@ function createEntity(jobId, jobName) {
     var taskUsers = [];
     for (var j=0;j<Math.floor(users.length);j++) {
       if (Math.random() > 0.5) {
-        taskUsers.push(users[j]); 
+        taskUsers.push({"name":users[j]}); 
       }
     }
     tasks.push({

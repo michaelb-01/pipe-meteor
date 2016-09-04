@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Entities } from '../../../collections/entities';
 import { Mongo } from 'meteor/mongo';
 import { EntityService } from './entity.service';
+import { EntityFormComponent } from './entity-form';
+
 import { MeteorComponent } from 'angular2-meteor';
 
 import { Tracker } from 'meteor/tracker';
@@ -18,6 +20,7 @@ import { SearchBox } from '../shared/search_box';
   selector: 'entities',
   templateUrl: '/client/imports/entity/entities.html',
   directives: [ ROUTER_DIRECTIVES,
+                EntityFormComponent,
                 SearchBox ],
   providers: [ EntityService ],
   pipes: [ FilterPipe, FirstLetterPipe ]
@@ -56,9 +59,12 @@ export class EntitiesComponent  extends MeteorComponent {
             // Update lists
             this.entities = Entities.find({ "job.jobId": this.jobId });
 
+            this._entityService.test();
+
             this.entities.forEach((item, index) => {
               if (index == 0) {
                 this.first = item;
+                console.log(item);
               }
               // sort into assets and shots
               if (item.type === 'asset') {
@@ -74,24 +80,79 @@ export class EntitiesComponent  extends MeteorComponent {
     });
   }
 
+  shiftDown = false;
+  @HostListener('window:keydown', ['$event'])
+  onKeyDown(event) {
+    if (event.keyCode == 16) {
+      this.shiftDown = true;
+    }
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onKeyUp(event) {
+    if (event.keyCode == 16) {
+      this.shiftDown = false;
+    }
+  }
+
   ngOnInit() {}
 
-  selected: string[] = [];
-  select(entity) {
-    entity.selected = !entity.selected;  // toggle selected attribute
-
-    var idx = this.selected.indexOf(entity._id);
-
-    if (idx > -1) {
-      this.selected.splice(idx, 1);
-    }
-    else {
-      this.selected.push(entity._id);
-    }
-
+  selected = [];
+  select(entity,task,assetId,taskId) {
     console.log(entity);
 
-    this._sharedService.updateSel({"id":entity._id, "name":entity.name}, 'entity');
+    var obj = { "id":entity._id, "type":task.type, "name":entity.name, "entityType":entity.type, "assetId":assetId, "taskId":taskId };
+
+    if (this.shiftDown == false) {
+
+      if (entity.type == 'asset') {
+        this.assets.forEach((asset) => {
+          asset.tasks.forEach((task) => {
+            task.selected = false;
+          });
+        });
+      }
+      else {
+        this.shots.forEach((shot) => {
+          shot.tasks.forEach((task) => {
+            task.selected = false;
+          });
+        });
+      }
+
+      task.selected = true;
+
+      this.selected = [];
+      this.selected.push(obj);
+
+      return;
+    }
+
+    task.selected = !task.selected;  // toggle selected attribute
+
+    var contains = false;
+
+    var i;
+    for (i = 0; i < this.selected.length; i++) {
+      if (this.selected[i].id + this.selected[i].type == obj.id + obj.type) {
+        contains = true;
+        break;
+      }
+    }
+
+    if (contains == true) {
+      this.selected.splice(i, 1);
+    }
+    else {
+      this.selected.push(obj);
+    }
+
+    //this.selected.push(entity);
+
+    console.log(this.selected);
+    console.log('index: ' + i);
+
+    this._sharedService.updateSel({"id":entity._id, "type":task.type, "name":entity.name}, 'entity');
   }
 
   editSelected() {
@@ -102,6 +163,58 @@ export class EntitiesComponent  extends MeteorComponent {
   showDetails = false;
   showTaskDetails() {
     this.showDetails = !this.showDetails;
+  }
+
+  onAssign(event) {
+    //this.assets[0].tasks.splice(1,1);
+
+    if (this.selected.length < 1) {
+      console.log('no tasks selected');
+      return;
+    }
+    else if (event.users.length < 1) {
+      console.log('no users selected');
+      return;
+    }
+
+      // iterate over selected users
+      event.users.forEach((selUser) => {
+
+        for (var i = 0; i < this.selected.length; i++) {
+          if (this.selected[i].entityType == 'asset') {
+            // iterate over selected tasks
+            var assetId = this.selected[i].assetId;
+            var taskId = this.selected[i].taskId;
+
+            var found = false;
+
+            var j;
+            for (j = 0; j < this.assets[assetId].tasks[taskId].users.length; j++) {
+               if (this.assets[assetId].tasks[taskId].users[j].name == selUser.name) {
+                found = true;
+                console.log('found: ' + selUser + ' in ' + this.assets[assetId]);
+                break;
+              }
+            }
+
+            if (found == false) {
+              if (event.mode == true) {
+                this.assets[assetId].tasks[taskId].users.push({"name":selUser.name});
+                this._entityService.assignUser(this.assets[assetId]._id, taskId, selUser.name);
+              }
+            }
+            else {
+              if (event.mode == false) {
+                this.assets[assetId].tasks[taskId].users.splice(j,1);
+                this._entityService.unassignUser(this.assets[assetId]._id, taskId, selUser.name);
+              }
+            }
+          }
+        }
+      });
+
+      //this.assets = [];
+    
   }
 }
 

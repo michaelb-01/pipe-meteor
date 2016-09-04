@@ -24,7 +24,6 @@ export class JobSharedService extends MeteorComponent{
     this.subscription = this.subscribe('jobs', () => {
       var job = Jobs.findOne({"_id":id});
       this.job$.next(job);
-      console.log(job);
     }, true); // set autoBind to true to auto-update Angular
   }
 }
