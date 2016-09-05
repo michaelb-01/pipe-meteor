@@ -4,6 +4,8 @@
 
 <h5>Assets ({{assets.length}})</h5>
 
+{{selected.length}}
+
 <div class="cards assets">
   <div *ngFor="let asset of assets | filter:term; let assetId = index;" class="card">
     <div class="card-details" [ngClass]="{show: showDetails}">
@@ -64,5 +66,14 @@
 
 
 <!--<entity-form [sel]="selected" (onAssign)="onAssign($event)"></entity-form>-->
-<entity-form [sel]="selected" (onAssign)="onAssign($event)"></entity-form>-->
+<div id="entity-form-container" [ngClass]="{closed: selected.length==0}">
+
+  <entity-form [sel]="selected" (onAssign)="onAssign($event)"></entity-form>
+
+
+  <button (click)="toggleSidebarRight(!showSidebarRight)" [ngClass]="{active: selected.length>0}" class="burger left burger--htx">
+    <span></span>
+    <span></span>
+  </button>
+</div>
 

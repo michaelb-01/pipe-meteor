@@ -152,7 +152,7 @@ export class EntitiesComponent  extends MeteorComponent {
     console.log(this.selected);
     console.log('index: ' + i);
 
-    this._sharedService.updateSel({"id":entity._id, "type":task.type, "name":entity.name}, 'entity');
+    //this._sharedService.updateSel({"id":entity._id, "type":task.type, "name":entity.name}, 'entity');
   }
 
   editSelected() {
@@ -215,6 +215,11 @@ export class EntitiesComponent  extends MeteorComponent {
 
       //this.assets = [];
     
+  }
+
+  showSidebarRight = false;
+  toggleSidebarRight(newState) {
+    this.showSidebarRight = newState;
   }
 }
 

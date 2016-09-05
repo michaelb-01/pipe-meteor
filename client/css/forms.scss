@@ -3,12 +3,16 @@
   top: 0;
   right: -40px;
   height: 100%;
-  width: 200px;
+  width: 250px;
   background-color: white;
   z-index: 999;
   box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   &.closed {
-    right: -244px;
+    right: -295px;
   }
 }
 

@@ -131,9 +131,4 @@ export class EntityFormComponent extends MeteorComponent {
     console.log('unassign');
     this.onAssign.emit({mode:false, users:this.selectedUsers});
   }
-
-  showSidebarRight = false;
-  toggleSidebarRight(newState) {
-    this.showSidebarRight = newState;
-  }
 }

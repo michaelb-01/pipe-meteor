@@ -1,6 +1,5 @@
 <!--<form #form="ngForm" (submit)="onSubmit(form.value)" id="form" autocomplete="off">-->
 
-<div id="entity-form-container" [ngClass]="{closed: showSidebarRight}">
   <p class="title">ASSIGN TASKS</p>
 
   <div class="formContent">
@@ -17,10 +16,6 @@
     </div>
   </div>
 
-  <button (click)="toggleSidebarRight(!showSidebarRight)" [ngClass]="{active: showSidebarRight}" class="burger left burger--htx">
-    <span></span>
-    <span></span>
-  </button>
 
 <!--
   <md-input placeholder="Artists" 
@@ -74,5 +69,5 @@
     <button class="unassignBtn" (click)="unassign()">Unassign</button>
 
   </div>
-</div>
+
 <!--</form>-->
