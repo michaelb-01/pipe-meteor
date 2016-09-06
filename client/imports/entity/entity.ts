@@ -35,7 +35,7 @@ export class EntityComponent  extends MeteorComponent {
     this.route.params.subscribe((params) => {
       this.entityId = params['entityId'];
 
-      this._entityService.getJobById(this.entityId);
+      this._entityService.getEntityById(this.entityId);
 
       this.subscription = this._entityService.entity$.subscribe(entity => {
         if (!entity) return;   // don't forget this, because you may subscribe the data before you got data from the server

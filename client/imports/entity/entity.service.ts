@@ -23,7 +23,7 @@ export class EntityService extends MeteorComponent{
     super();
   }
 
-  getEntitiesById(id) {
+  getEntityById(id) {
     this.subscribe('entities', () => {
       this.entity$.next(Entities.findOne({"_id":id}));
     }, true); // set autoBind to true to auto-update Angular
