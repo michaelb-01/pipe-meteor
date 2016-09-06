@@ -11,6 +11,8 @@ export class EntityService extends MeteorComponent{
 
   entity$ = new BehaviorSubject<Entity>(null);
 
+  myTasks$ = new BehaviorSubject<Mongo.Cursor<any>>(null);
+
   subscription: any;
 
   constructor() {
@@ -19,13 +21,6 @@ export class EntityService extends MeteorComponent{
     // MeteorComponent handles ending the subscription
     // and updating Angular's UI
     super();
-  }
-
-  getJobs() {
-    this.subscribe('entities', () => {
-      this.entities = Entities.find();
-      this.entities$.next(Entities.find());
-    }, true); // set autoBind to true to auto-update Angular
   }
 
   getEntitiesById(id) {
@@ -38,6 +33,14 @@ export class EntityService extends MeteorComponent{
     this.subscribe('entities', () => {
       this.entities$.next(Entities.find({ "job.jobId":jobId }));
     }, true);
+  }
+
+  findMyTasks(user) {
+    this.subscribe('entities', () => {
+      this.myTasks$.next(Entities.find({ "tasks.users.name": user }));
+    }, true);
+
+    console.log('finding my tasks');
   }
 
   test() {

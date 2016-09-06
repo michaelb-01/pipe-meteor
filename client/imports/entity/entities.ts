@@ -40,6 +40,8 @@ export class EntitiesComponent  extends MeteorComponent {
   assets = [];
   shots = [];
 
+  selected = [];
+
   constructor(private _entityService: EntityService,
               private _sharedService: SharedService,
               private route: ActivatedRoute) { 
@@ -95,9 +97,6 @@ export class EntitiesComponent  extends MeteorComponent {
     }
   }
 
-  ngOnInit() {}
-
-  selected = [];
   select(entity,task,assetId,taskId) {
     console.log(entity);
 

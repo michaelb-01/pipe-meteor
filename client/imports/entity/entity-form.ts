@@ -130,5 +130,6 @@ export class EntityFormComponent extends MeteorComponent {
   unassign() {
     console.log('unassign');
     this.onAssign.emit({mode:false, users:this.selectedUsers});
+    this.selected = [];
   }
 }

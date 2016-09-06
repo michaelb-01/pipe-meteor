@@ -9,15 +9,15 @@
         <div class="taskMenuWrapper">
           <div class="taskMenu">
             <div class="thumb">
-              <img src="{{myTask.thumb}}">
+              <img src="/img/{{myTask.thumbUrl}}">
             </div>
             <div class="taskDetails">
               <div class="taskName">
                 {{myTask.name}}
               </div>
               <div class="taskType">
-                <a *ngIf="myTask.types.length <= 1" href="#" class="taskType">{{myTask.types[0]}}</a>
-                <div *ngIf="myTask.types.length > 1">&#9660;</div>
+                <a *ngIf="myTask.tasks.length <= 1" href="#" class="taskType">{{myTask.tasks[0]}}</a>
+                <div *ngIf="myTask.tasks.length > 1">&#9660;</div>
               </div>
               <div class="taskSubType">
             
@@ -30,8 +30,8 @@
             <div class="menuSelect"></div>
 
           </div>
-          <div *ngIf="myTask.types.length > 1" class="taskMenuExtra">
-            <a *ngFor="let type of myTask.types" href="#" class="taskExtraItem {{type | lowercase}}">{{type}}
+          <div *ngIf="myTask.tasks.length > 1" class="taskMenuExtra">
+            <a *ngFor="let task of myTask.tasks" href="#" class="taskExtraItem {{task.type | lowercase}}">{{task.type}}
             </a>
           </div>
 
@@ -41,6 +41,7 @@
         </div>
       </a>
     </li>
+
   </ul>
 
   <button (click)="toggleSidebarLeft(!showSidebarLeft)" [ngClass]="{active: showSidebarLeft}" class="burger right burger--htx">
