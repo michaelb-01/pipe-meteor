@@ -16,7 +16,7 @@
                 {{myTask.name}}
               </div>
               <div class="taskType">
-                <a *ngIf="myTask.tasks.length <= 1" href="#" class="taskType">{{myTask.tasks[0]}}</a>
+                <a *ngIf="myTask.tasks.length <= 1" href="#" class="taskType">{{myTask.tasks[0].type}}</a>
                 <div *ngIf="myTask.tasks.length > 1">&#9660;</div>
               </div>
               <div class="taskSubType">
