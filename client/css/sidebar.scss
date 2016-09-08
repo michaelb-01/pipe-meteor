@@ -1,3 +1,7 @@
+sidebar-left {
+  position: relative;
+}
+
 $sidebarWidth: 250px;
 .sidebar {
   position: relative;
@@ -10,7 +14,8 @@ $sidebarWidth: 250px;
   //background-color: #ddd;
   box-shadow: 0 10px 10px 0 rgba(0, 0, 0, 0.12);
   white-space: nowrap;
-  overflow: visible;
+  overflow-y: scroll;
+  overflow-x: visible;
   &.right {
     position: absolute;
     width: 250px;

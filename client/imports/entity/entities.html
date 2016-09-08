@@ -11,7 +11,7 @@
     <div class="card-details" [ngClass]="{show: showDetails}">
       <div class="card-details-title bold">{{asset.name}}</div>
       <ul class="task-list">
-        <li *ngFor="let task of asset.tasks; let taskId = index;" 
+        <li *ngFor="let task of asset.tasks | filter:term; let taskId = index;" 
            (click)="select(asset,task,assetId,taskId)" 
            class="task-item"
            [ngClass]="{selected: task.selected}">
@@ -19,7 +19,7 @@
             {{task.type}} 
           </span>
           <div class="chips chips-small">
-            <div *ngFor="let taskUser of task.users" class="chip">
+            <div *ngFor="let taskUser of task.users | filter:term" class="chip">
               {{taskUser.name | firstLetter}}
             </div>
           </div>

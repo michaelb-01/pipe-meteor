@@ -1,3 +1,8 @@
+<button (click)="toggleSidebarLeft(!showSidebarLeft)" [ngClass]="{active: showSidebarLeft}" class="burger right burger--htx">
+  <span></span>
+  <span></span>
+</button>
+
 <nav class="sidebar left" [ngClass]="{closed: !showSidebarLeft}">
   <ul class="scrollbar">
     <li>
@@ -43,9 +48,4 @@
     </li>
 
   </ul>
-
-  <button (click)="toggleSidebarLeft(!showSidebarLeft)" [ngClass]="{active: showSidebarLeft}" class="burger right burger--htx">
-    <span></span>
-    <span></span>
-  </button>
 </nav>

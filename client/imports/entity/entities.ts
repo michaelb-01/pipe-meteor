@@ -12,6 +12,7 @@ import { Tracker } from 'meteor/tracker';
 import { SharedService } from '../shared/shared.service';
 
 import { FilterPipe } from '../shared/filter.pipe';
+import { NullPipe } from '../shared/null.pipe';
 import { FirstLetterPipe } from '../shared/first-letter.pipe';
 
 import { SearchBox } from '../shared/search_box';
@@ -23,11 +24,13 @@ import { SearchBox } from '../shared/search_box';
                 EntityFormComponent,
                 SearchBox ],
   providers: [ EntityService ],
-  pipes: [ FilterPipe, FirstLetterPipe ]
+  pipes: [ FilterPipe,  NullPipe, FirstLetterPipe ]
 })
 
 export class EntitiesComponent  extends MeteorComponent {
   entities: Mongo.Cursor<Object>;
+
+  testFilter = 1;
 
   first: Object;
 
