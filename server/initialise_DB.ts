@@ -37,7 +37,9 @@ export function createUsers () {
   }
 }
 
-var images = ['bmw','clothes','interior','wallSmash','warAndPeace','willYoung'];
+var images = ['/img/bmw.jpg','/img/clothes.jpg','/img/interior.jpg','/img/wallSmash.jpg','/img/warAndPeace.jpg','/img/willYoung.jpg'];
+var videos = ['/video/dust_01.mov','/video/test.mov'];
+
 var types = ['asset','shot'];
 
 function createVersion(jobId, jobName, entityId, entityName) {
@@ -56,6 +58,15 @@ function createVersion(jobId, jobName, entityId, entityName) {
     });
   }
 
+  var type = 'still';
+  var content = images[Math.floor((Math.random() * images.length))];
+
+  // make half videos
+  if (Math.random() > 0.5) {
+    type = 'video';
+    content = videos[Math.floor((Math.random() * videos.length))];
+  }
+
   var version = {
     'job': {
       'jobId': jobId,
@@ -68,8 +79,8 @@ function createVersion(jobId, jobName, entityId, entityName) {
     'author': 'Mike Battcock',
     'version': Math.floor((Math.random() * 100) + 1),
     'notes': notes,
-    'type': 'still',
-    'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
+    'type': type,
+    'content': content,
     'description': Fake.sentence(7),
     'date': new Date(),
     'public': true
@@ -107,7 +118,7 @@ function createEntity(jobId, jobName) {
     'type': types[Math.floor((Math.random() * types.length))],
     'tasks': tasks,
     'status': 'active',
-    'thumbUrl': images[Math.floor((Math.random() * images.length))] + '.jpg',
+    'thumbUrl': images[Math.floor((Math.random() * images.length))],
     'description': Fake.sentence(7),
     'public': true
   }

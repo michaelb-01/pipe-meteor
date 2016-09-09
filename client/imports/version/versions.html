@@ -35,7 +35,21 @@
   </div>
 
   <div class="card-image">
-    <img *ngIf="version?.type == 'still'" class="card-image" src="/img/{{version?.thumbUrl}}">
+    <img *ngIf="version?.type == 'still'" class="card-image" src="{{version?.content}}">
+
+    <!--<video *ngIf="version?.type == 'video'" class="card-image" src="{{version?.content}}">-->
+
+    <div *ngIf="version?.type == 'video'" class="pipe-video">
+      <i class="material-icons playButton">chevron_right</i>
+      <video loop #videoEl 
+        (mouseenter)=play(videoEl) 
+        (mouseleave)=pause(videoEl)>
+
+        <source src={{version?.content}} type="video/mp4">
+
+        Your browser does not support the video tag.
+      </video>
+    </div>
 
     <!--
     <div class="banner fadeOut">

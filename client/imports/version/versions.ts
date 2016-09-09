@@ -53,7 +53,13 @@ export class VersionsComponent  extends MeteorComponent {
     }
   }
 
+  play(el) {
+    el.play(); 
+  }
 
+  pause(el) {
+    el.pause();
+  }
 
   editSelected() {
     this._sharedService.edit('form');

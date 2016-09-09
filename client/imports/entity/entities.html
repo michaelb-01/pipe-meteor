@@ -28,7 +28,7 @@
       </ul>
     </div>
     <div class="card-thumb">
-      <img src="/img/{{asset?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
+      <img src="{{asset?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
         <a [routerLink]="['/entity', asset._id]">
           <h2 class="cardTitle">{{asset.name}}</h2>
@@ -44,7 +44,7 @@
 <div class="cards shots">
   <div *ngFor="let shot of shots | filter:term" class="card" [ngClass]="{selected: shot.selected}" (click)="select(shot)">
     <div class="card-thumb">
-      <img src="/img/{{shot?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
+      <img src="{{shot?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
         <a [routerLink]="['/entity', shot._id]">
           <h2 class="cardTitle">{{shot.name}}</h2>
