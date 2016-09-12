@@ -2,6 +2,7 @@
   <div *ngFor="let job of jobs" class="card">
     <a [routerLink]="['/job', job._id]">
       <div class="card-image">
+        /img/{{job.thumbUrl}}
         <img src="/img/{{job.thumbUrl}}" onerror="this.src='/img/default.jpg'">
         <div class="banner fadeOut">
           <h2 class="cardTitle">{{job.client}}</h2>
