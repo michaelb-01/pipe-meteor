@@ -145,6 +145,9 @@ export class ReviewComponent extends MeteorComponent {
   nx;
   ny;
 
+  strokeColour = "F00";
+  strokeWidth = 5;
+
   td = 0;
   dds = [ 0 ];
 
@@ -159,7 +162,7 @@ export class ReviewComponent extends MeteorComponent {
       }
 
       var ss = numeric.spline(ts,this.version.annotations[i]);
-      this.draw_spline(ss, "#0F0");
+      this.draw_spline(ss, "F00");
     }
   }
 
@@ -169,7 +172,7 @@ export class ReviewComponent extends MeteorComponent {
     this.ctx = this.canvas.nativeElement.getContext("2d");
 
     // initialise canvas variables
-    this.ctx.lineWidth = 5;
+    this.ctx.lineWidth = this.strokeWidth;
     this.ctx.lineJoin = 'round';
     this.ctx.lineCap = 'round';
     //this.ctx.strokeStyle = 'hsl(100, 100%, 50%)';
@@ -229,7 +232,7 @@ export class ReviewComponent extends MeteorComponent {
       this.ctx.beginPath();
       this.ctx.moveTo(x1, y1);
       this.ctx.lineTo(x2, y2);
-      this.ctx.strokeStyle = "#00F";
+      this.ctx.strokeStyle = "#F00";
       this.ctx.stroke();
       this.ctx.closePath();
   }
@@ -270,7 +273,7 @@ export class ReviewComponent extends MeteorComponent {
     
     for (var i=0; i<ts.length; i++) {
         var xy = spnew.at(ts[i]);
-        this.draw_marker(xy[0], xy[1], 5);
+        //this.draw_marker(xy[0], xy[1], 5);
         curve.push([xy[0],xy[1]]);
     }
 
@@ -289,6 +292,12 @@ export class ReviewComponent extends MeteorComponent {
     this.ctx.strokeStyle = style;
     this.ctx.stroke();
     this.ctx.closePath();
+  }
+
+  clearCanvas() {
+    console.log('clear canvas');
+    console.log(this.canvas.nativeElement.width);
+    this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
   }
 
   onPaint2(e) {
@@ -314,10 +323,8 @@ export class ReviewComponent extends MeteorComponent {
   endPaint() {
     this.mouseMoveFunc();
 
-    console.log('dds:');
-    console.log(this.dds);
-    console.log('td:');
-    console.log(this.td);
+    
+
     // need at least two points
     if (this.dds.length > 1) {
       var ts = [];
@@ -325,10 +332,10 @@ export class ReviewComponent extends MeteorComponent {
         ts.push(this.dds[i]/this.td);
       }
 
-      console.log(ts);
-
       var ss = numeric.spline(ts,this.xys);
-      this.draw_spline(ss, "#0F0");
+      //this.draw_spline(ss, "#0F0");
+
+      this.clearCanvas();
 
       var ss2 = this.simplify_spline(ss);
       this.draw_spline(ss2, "#F00");
