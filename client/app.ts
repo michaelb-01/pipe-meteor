@@ -25,6 +25,9 @@ import { VersionsComponent } from './imports/version/versions.ts';
 // users
 import { UsersComponent } from './imports/user/users.ts';
 
+// review
+import { ReviewComponent } from './imports/review/review';
+
 // shared service
 import { SharedService } from './imports/shared/shared.service';
 import { JobSharedService } from './imports/shared/job-shared.service';
@@ -44,10 +47,12 @@ const routes: RouterConfig = [
   { path: 'job/:jobId', component: JobComponent },
   { path: 'jobForm', component: JobFormComponent },
 
-  { path: 'entity/:entityId', component: EntityComponent},
+  { path: 'entity/:entityId', component: EntityComponent },
 
   { path: 'users', component: UsersComponent },
-  { path: 'user/:userId', component: UsersComponent }
+  { path: 'user/:userId', component: UsersComponent },
+
+  { path: 'review/:versionId', component: ReviewComponent }
 ];
 
 const APP_ROUTER_PROVIDERS = [

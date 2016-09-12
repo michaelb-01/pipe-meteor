@@ -24,7 +24,7 @@
       </div>
       <div class="card-title-group">
         <div class="card-title">{{version?.author}}</div>
-        <a>
+          <a [routerLink]="['/review', version._id]">
           <div class="card-subtitle">v{{version?.version}}</div>
         </a>
       </div>

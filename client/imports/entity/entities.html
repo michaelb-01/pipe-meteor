@@ -31,8 +31,8 @@
       <img src="{{asset?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
         <a [routerLink]="['/entity', asset._id]">
-          <h2 class="cardTitle">{{asset.name}}</h2>
-          <h5 class="cardTag">{{asset.type}}</h5>
+          <h2 class="cardTitle">{{asset?.name}}</h2>
+          <h5 class="cardTag">{{asset?.type}}</h5>
         </a>
       </div>
     </div>
@@ -47,8 +47,8 @@
       <img src="{{shot?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
         <a [routerLink]="['/entity', shot._id]">
-          <h2 class="cardTitle">{{shot.name}}</h2>
-          <h5 class="cardTag">{{shot.type}}</h5>
+          <h2 class="cardTitle">{{shot?.name}}</h2>
+          <h5 class="cardTag">{{shot?.type}}</h5>
         </a>
       </div>
     </div>

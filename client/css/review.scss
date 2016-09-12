@@ -1,0 +1,104 @@
+#mediaContainer {
+  display: flex;
+  width:100%;
+  height: 100%;
+
+  #tools {
+    flex: 0 1 200px;
+  }
+  #mediaWrapper {
+    flex: 1 0 auto;
+    position: relative;
+    width: 640px;
+    height: 360px;
+    #video-controls {
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:50px;
+    }
+  }
+  #commentWindow {
+    flex: 0 1 200px;
+    #title {
+      text-align: center;
+    }
+    .commentItem {
+      display: flex;
+      flex-direction: row;
+      font-size: 0.9em;
+      cursor: pointer;
+      &:hover {
+        font-weight: bold;
+        & > .commentTime {
+          color: #0078a0;
+        }
+      }
+      .commentTime {
+        padding:0 10px;
+        font-weight: bold;
+        color: #008cba;
+      }
+      .comment {
+      }
+    }
+  }
+
+  #paint {
+    position:absolute;
+    z-index: 9999;
+  }
+
+  #markers {
+    position:absolute;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    padding-left: 62px;
+    padding-right: 140px;
+    opacity: 0.5;
+    #annotations {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      li {
+        position:absolute;
+        //background-color: #008cba;
+        width: 10px;
+        margin-left: -5px;
+        height: 20px;
+        background: -webkit-radial-gradient(rgba(10,130,196,1) 20%, rgba(1,130,196,0) 100%); 
+      }
+    }
+  }
+}
+
+#paint {
+  //cursor: none;
+}
+
+#canvasVid {
+  width:100%;
+  height: 100%;
+  background-color:red;
+}
+
+#brush {
+  display: none;
+  position:absolute;
+  .fa-circle {
+    position:absolute;
+    padding:0px;
+    font-size: 6px;
+    margin-left: -3px;
+    margin-top: -3px;
+    color:hsl(100, 100%, 50%);  // green
+  }
+}
+
+.commentInput {
+  display: none;
+  position:absolute;
+  cursor: grab !important;
+  z-index: 99999;
+}
