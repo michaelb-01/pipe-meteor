@@ -138,7 +138,7 @@ export class ReviewComponent extends MeteorComponent {
 
   mouseMoveFunc: Function;  // event listener for mouse move
   oldPos: {};
-  annotations = [];
+  reviews = [];
 
   ox;
   oy;
@@ -151,17 +151,21 @@ export class ReviewComponent extends MeteorComponent {
   td = 0;
   dds = [ 0 ];
 
-  loadAnnotations() {
-    for (var i = 0; i < this.version.annotations.length; i++) {
+  storedStrokes = [];
+
+  drawOldStrokes () {
+    console.log(this.storedStrokes);
+
+    for (var i = 0; i < this.storedStrokes.length; i++) {
       var ts = [];
 
-      var length = this.version.annotations[i].length-1;
+      var length = this.storedStrokes[i].length-1;
 
       for (var j = 0; j <= length; j++) {
         ts.push((1.0/length)*j);
       }
 
-      var ss = numeric.spline(ts,this.version.annotations[i]);
+      var ss = numeric.spline(ts,this.storedStrokes[i]);
       this.draw_spline(ss, "F00");
     }
   }
@@ -183,8 +187,9 @@ export class ReviewComponent extends MeteorComponent {
     //this.testRectangle();
     this.video.nativeElement.play();
 
-    if(this.version.hasOwnProperty('annotations')){
-      this.loadAnnotations();
+    if(this.version.hasOwnProperty('reviews')){
+      this.storedStrokes.push(this.version.reviews);
+      this.drawOldStrokes();
     }
 
     this.updateFrame(); // update video frame
@@ -277,7 +282,7 @@ export class ReviewComponent extends MeteorComponent {
         curve.push([xy[0],xy[1]]);
     }
 
-    this.annotations.push(curve);
+    this.reviews.push(curve);
 
     return spnew;
   }
@@ -294,10 +299,13 @@ export class ReviewComponent extends MeteorComponent {
     this.ctx.closePath();
   }
 
-  clearCanvas() {
-    console.log('clear canvas');
-    console.log(this.canvas.nativeElement.width);
+  clearCanvasTemp() {
     this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+  }
+
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.storedStrokes.length = 0;
   }
 
   onPaint2(e) {
@@ -323,8 +331,6 @@ export class ReviewComponent extends MeteorComponent {
   endPaint() {
     this.mouseMoveFunc();
 
-    
-
     // need at least two points
     if (this.dds.length > 1) {
       var ts = [];
@@ -335,14 +341,20 @@ export class ReviewComponent extends MeteorComponent {
       var ss = numeric.spline(ts,this.xys);
       //this.draw_spline(ss, "#0F0");
 
-      this.clearCanvas();
+      this.storedStrokes.push(this.xys);
+
+      this.clearCanvasTemp();
+
+      this.drawOldStrokes();
+
+      return;
 
       var ss2 = this.simplify_spline(ss);
       this.draw_spline(ss2, "#F00");
     }
 
     //this.points2.length = 0;
-    //document.getElementById("commentInput").focus();
+    document.getElementById("commentInput").focus();
   }
 
   getMousePos(canvas, e) {
