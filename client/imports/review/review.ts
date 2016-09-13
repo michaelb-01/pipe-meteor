@@ -66,7 +66,11 @@ export class ReviewComponent extends MeteorComponent {
   keydown(e) {
     switch(e.which) {
       case 32:   // space
-        this.playPause();
+        if (document.getElementById("commentInput") !== document.activeElement ||
+          document.getElementById("commentInput").value == '') {
+            e.preventDefault();
+            this.playPause();
+        }
 
       default: return; // exit this handler for other keys
     }
@@ -153,23 +157,6 @@ export class ReviewComponent extends MeteorComponent {
 
   storedStrokes = [];
 
-  drawOldStrokes () {
-    console.log(this.storedStrokes);
-
-    for (var i = 0; i < this.storedStrokes.length; i++) {
-      var ts = [];
-
-      var length = this.storedStrokes[i].length-1;
-
-      for (var j = 0; j <= length; j++) {
-        ts.push((1.0/length)*j);
-      }
-
-      var ss = numeric.spline(ts,this.storedStrokes[i]);
-      this.draw_spline(ss, "F00");
-    }
-  }
-
   initCanvas() {
     //console.log(this.canvasEl);
     //let canvas = this.canvasEl.nativeElement;
@@ -225,6 +212,26 @@ export class ReviewComponent extends MeteorComponent {
     this.ctx.stroke();
   };
 
+  drawOldStrokes () {
+    for (var i = 0; i < this.storedStrokes.length; i++) {
+      var ts = [];
+
+      var length = this.storedStrokes[i].length-1;
+
+      for (var j = 0; j <= length; j++) {
+        ts.push((1.0/length)*j);
+      }
+
+      //console.log(ts);
+
+      var ss = numeric.spline(ts,this.storedStrokes[i]);
+      //this.draw_spline(ss, "F00");
+
+      //var ss2 = this.simplify_spline(ss);
+      this.draw_spline(ss, "#F00");
+    }
+  }
+
   draw_marker(x, y, r) {
     this.ctx.beginPath();
     this.ctx.arc(x, y, r, 0, Math.PI*2);
@@ -242,11 +249,13 @@ export class ReviewComponent extends MeteorComponent {
       this.ctx.closePath();
   }
 
+
+
   simplify_spline(spold, tolerance) {
     // Simplifies the source spline by trying to find a smaller set of points
     // which fit within @tolerance.
     
-    var tolerance2 = tolerance ? tolerance * tolerance : 10;
+    var tolerance2 = tolerance ? tolerance * tolerance : 100;
     var subdivide = [ 1./4, 3./8, 1./2, 5./8, 3./4 ];
     var ts = [ 0, 1 ];
     var spnew = numeric.spline(ts, spold.at(ts));
@@ -274,15 +283,19 @@ export class ReviewComponent extends MeteorComponent {
         spnew = numeric.spline(ts, spold.at(ts));
     }
 
-    var curve = [];
+    this.xys = [];
     
     for (var i=0; i<ts.length; i++) {
         var xy = spnew.at(ts[i]);
-        //this.draw_marker(xy[0], xy[1], 5);
-        curve.push([xy[0],xy[1]]);
+        this.draw_marker(xy[0], xy[1], 5);
+        this.xys.push([xy[0],xy[1]]);
     }
 
-    this.reviews.push(curve);
+    //this.storedStrokes.push(stroke);
+
+    console.log(this.xys);
+
+    //this.reviews.push(stroke);
 
     return spnew;
   }
@@ -338,8 +351,14 @@ export class ReviewComponent extends MeteorComponent {
         ts.push(this.dds[i]/this.td);
       }
 
+      //console.log(ts);
+      //console.log(this.td);
+
       var ss = numeric.spline(ts,this.xys);
       //this.draw_spline(ss, "#0F0");
+
+      // do this to generate simplified points in this.xys
+      var ss2 = this.simplify_spline(ss);
 
       this.storedStrokes.push(this.xys);
 
@@ -347,10 +366,8 @@ export class ReviewComponent extends MeteorComponent {
 
       this.drawOldStrokes();
 
-      return;
-
-      var ss2 = this.simplify_spline(ss);
-      this.draw_spline(ss2, "#F00");
+      //var ss2 = this.simplify_spline(ss);
+      //this.draw_spline(ss2, "#F00");
     }
 
     //this.points2.length = 0;
