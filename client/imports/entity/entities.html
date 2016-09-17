@@ -7,7 +7,7 @@
 {{selected.length}}
 
 <div class="cards assets">
-  <div *ngFor="let asset of assets | filter:term; let assetId = index;" class="card">
+  <div *ngFor="let asset of assets | filter:term; let assetId = index;" class="card card-mid">
     <div class="card-details" [ngClass]="{show: showDetails}">
       <div class="card-details-title bold">{{asset.name}}</div>
       <ul class="task-list">
@@ -42,7 +42,7 @@
 <h5>Shots ({{shots.length}})</h5>
 
 <div class="cards shots">
-  <div *ngFor="let shot of shots | filter:term" class="card" [ngClass]="{selected: shot.selected}" (click)="select(shot)">
+  <div *ngFor="let shot of shots | filter:term" class="card card-mid" [ngClass]="{selected: shot.selected}" (click)="select(shot)">
     <div class="card-thumb">
       <img src="{{shot?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
