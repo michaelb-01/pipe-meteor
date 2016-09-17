@@ -1,5 +1,5 @@
 <div class="contentSafe">
-  <div *ngFor="let job of jobs" class="card">
+  <div *ngFor="let job of jobs" class="card card-big">
     <a [routerLink]="['/job', job._id]">
       <div class="card-image">
         <img src="/img/{{job.thumbUrl}}" onerror="this.src='/img/default.jpg'">
