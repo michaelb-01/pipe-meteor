@@ -293,3 +293,44 @@ $lineWidth: 1px;
 .burger--htx.active span::after {
   transition-delay: 0s, 0.3s;
 }
+
+/* iPhone 6 landscape */
+@media only screen and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (orientation: landscape)
+  and (-webkit-min-device-pixel-ratio: 2) 
+{ 
+  .sidebar-left {
+    width: 150px;
+  }
+  .taskMenu .thumb,.taskDetails {
+    position: absolute;
+    width:100%;
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+  }
+  .taskTimeLeft {
+    margin-left: 100%;
+  }
+}
+
+/* iPhone 6 portrait */
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 667px)
+  and (orientation: portrait)
+  and (-webkit-min-device-pixel-ratio: 2) 
+{ 
+  .sidebar.left {
+    width: 150px;
+  }
+  .taskMenu .thumb,.taskDetails {
+    position: absolute;
+    width:100% !important;
+    background-color: rgba(0,0,0,0.3) !important;
+    color: white;
+  }
+  .taskTimeLeft {
+    margin-left: 100%;
+  }
+}
