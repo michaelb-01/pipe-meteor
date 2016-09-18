@@ -1,11 +1,26 @@
 sidebar-left {
+  //position: relative;
+  height: 100%;
+  //width: 70%;
+}
+
+.sidebarWrapper {
   position: relative;
+  width: 250px;
+  height: 100%;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  &.closed {
+    margin-left: -250px;
+  }
 }
 
 $sidebarWidth: 250px;
 .sidebar {
   position: relative;
-  width: $sidebarWidth;
+  //width: $sidebarWidth;
   height:100%;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -28,7 +43,7 @@ $sidebarWidth: 250px;
   &.closed {
     box-shadow: 0 0 0 0;
     &.left {
-      margin-left: -$sidebarWidth;
+      //margin-left: -$sidebarWidth;
     }
     &.right {
       margin-right: -$sidebarWidth;
@@ -70,6 +85,9 @@ $sidebarWidth: 250px;
           -moz-transition: all 0.3s ease;
           -o-transition: all 0.3s ease;
           transition: all 0.3s ease;
+
+          //-webkit-transition-delay: 0.25s; /* Safari */
+          //transition-delay: 0.25s;
         }
       } 
       .taskMenuExtra {
@@ -82,6 +100,10 @@ $sidebarWidth: 250px;
         -moz-transition: all 0.3s ease;
         -o-transition: all 0.3s ease;
         transition: all 0.3s ease;
+
+        //-webkit-transition-delay: 0.25s; /* Safari */
+        //transition-delay: 0.25s;
+
         overflow: hidden;
         * {
           font-size: 12px;
@@ -121,6 +143,10 @@ $sidebarWidth: 250px;
   -moz-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+
+  //-webkit-transition-delay: 0.25s; /* Safari */
+  //transition-delay: 0.25s;
+
   &.fx:hover {
     background: rgba(255,0,0,0.1);
   }
