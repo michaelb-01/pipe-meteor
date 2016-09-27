@@ -11,6 +11,7 @@ interface Version {
   author?: string;
   version?: number;     
   notes?: string[];   
+  review?: string[];
   type?: string;  
   thumbUrl?: string;
   description?: string;

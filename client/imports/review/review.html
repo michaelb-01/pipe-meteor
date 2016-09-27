@@ -6,7 +6,8 @@
     <input class="commentInput"/>
     
     <canvas #canvasEl id="paint" (mousedown)="canvasMouseDown($event)"
-                                 (mouseup)="endPaint($event)"></canvas>
+                                 (mouseup)="endPaint($event)"
+                                 (mouseout)="endPaint($event)"></canvas>
 
     <video #video id="vid" 
             width="100%" 
@@ -25,25 +26,31 @@
 
     <!--<canvas id="canvasVid"></canvas>-->
 
+<!--
     <div id="video-controls">
-      <!--<i class="fa fa-play"></i>
-      <i class="fa fa-pause"></i>-->
+      <<i class="fa fa-play"></i>
+      <i class="fa fa-pause"></i>
     </div>
+-->
 
     <div class="frame">  
       <span id="currentFrame">{{frame}}</span>
     </div>
 
+<!--
     <div id="markers">
       <ul id="annotations">
 
       </ul>
     </div>
+-->
 
     <button id="save-annotation" (click)="saveAnnotation()">Save Annotation</button>
     <button id="load-annotation">Load Annotation</button>
     <button id="clear-annotation" (click)="clearCanvas()">Clear Annotation</button>
 
+    <button (click)="goToNextNote()">Next Note</button>
+    <button (click)="goToPreviousNote()">Previous Note</button>
   </div>
 
   <div id="commentWindow">
@@ -57,7 +64,7 @@
 
 
     <ul id="commentList">
-      <li *ngFor="let obj of comments">
+      <li *ngFor="let obj of review">
         {{obj.frame}}
         <div *ngFor="let comment of obj.comments">
 

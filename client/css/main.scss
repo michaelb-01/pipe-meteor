@@ -183,6 +183,13 @@ users {
   text-align: center;
 }
 
+.searchBoxWrapper {
+  position: relative;
+  width: 200px;
+  left: 50%;
+  margin: 5px 0 5px -100px;
+}
+
 /* iPhone 6 landscape */
 @media only screen and (min-device-width: 375px)
   and (max-device-width: 667px)

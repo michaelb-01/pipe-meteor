@@ -4,7 +4,7 @@
 
 <h5>Assets ({{assets.length}})</h5>
 
-{{selected.length}}
+<span class='tooltipUser' style="position:absolute; z-index:99999;" [style.top]="top" [style.left]="left">{{tooltipName}}</span>
 
 <div class="cards assets">
   <div *ngFor="let asset of assets | filter:term; let assetId = index;" class="card card-mid">
@@ -19,7 +19,9 @@
             {{task.type}} 
           </span>
           <div class="chips chips-small">
-            <div *ngFor="let taskUser of task.users | filter:term" class="chip">
+            <div *ngFor="let taskUser of task.users | filter:term" class="chip" 
+                 (mouseover)="showTooltip($event, taskUser.name)" 
+                 (mouseout)="showTooltip($event, '')">
               {{taskUser.name | firstLetter}}
             </div>
           </div>
@@ -42,7 +44,26 @@
 <h5>Shots ({{shots.length}})</h5>
 
 <div class="cards shots">
-  <div *ngFor="let shot of shots | filter:term" class="card card-mid" [ngClass]="{selected: shot.selected}" (click)="select(shot)">
+  <div *ngFor="let shot of shots | filter:term; let shotId = index;" class="card card-mid">
+    <div class="card-details" [ngClass]="{show: showDetails}">
+      <div class="card-details-title bold">{{shot.name}}</div>
+      <ul class="task-list">
+        <li *ngFor="let task of shot.tasks | filter:term; let taskId = index;" 
+           (click)="select(shot,task,shotId,taskId)" 
+           class="task-item"
+           [ngClass]="{selected: task.selected}">
+          <span class="type">
+            {{task.type}} 
+          </span>
+          <div class="chips chips-small">
+            <div *ngFor="let taskUser of task.users | filter:term" class="chip">
+              {{taskUser.name | firstLetter}}
+            </div>
+          </div>
+          <hr class="hr-thin">
+        </li>
+      </ul>
+    </div>
     <div class="card-thumb">
       <img src="{{shot?.thumbUrl}}" onerror="this.src='/img/default.jpg'">
       <div class="banner fadeOut">
@@ -55,6 +76,7 @@
   </div>
 </div>
 
+<!--
 <div style="position: absolute; bottom: 0; right: 0;">
   <div class="fab entity edit" (click)="editSelected()">
     <div>
@@ -63,13 +85,12 @@
     </div>
   </div>
 </div>
-
+-->
 
 <!--<entity-form [sel]="selected" (onAssign)="onAssign($event)"></entity-form>-->
 <div id="entity-form-container" [ngClass]="{closed: selected.length==0}">
 
   <entity-form [sel]="selected" (onAssign)="onAssign($event)"></entity-form>
-
 
   <button (click)="toggleSidebarRight(!showSidebarRight)" [ngClass]="{active: selected.length>0}" class="burger left burger--htx">
     <span></span>

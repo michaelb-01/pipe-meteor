@@ -1,0 +1,10 @@
+Using Electrify:
+
+run the following from the terminal:
+electrify
+
+Or use meteor-electron:
+https://github.com/electron-webapps/meteor-electron
+
+Once added this will automaticlly build and deploy the electron app when running 'meteor' from the terminal
+

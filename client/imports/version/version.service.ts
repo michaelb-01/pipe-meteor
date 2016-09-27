@@ -35,9 +35,26 @@ export class VersionService extends MeteorComponent{
     }, true); // set autoBind to true to auto-update Angular
   }
 
-  addAnnotation(versionId, annotations) {
-    //console.log(annotations);
-    //console.log(versionId);
-    Versions.update({"_id" :versionId },{$set : {"annotations":annotations}});
+  addFrameNote(versionId, notes, idx) {
+    var frame = notes.frame;
+
+    //delete notes['frame'];
+
+    console.log(versionId);
+    console.log(notes);
+    console.log(idx);
+
+    var obj = {
+      'frame': frame,
+      'notes': notes
+    }
+
+    if (idx > -1) {
+
+    }
+    else {
+      //Versions.update({"_id" :versionId },{$push : {"review":obj}});
+      Versions.update({"_id" :versionId },{$push : {"review":notes}});
+    }
   }
 }

@@ -38,6 +38,8 @@ export class ReviewComponent extends MeteorComponent {
   comment:string = '';
   comments:string = [];
 
+  review = [];
+
   @ViewChild('video') video; 
 
   constructor(private route: ActivatedRoute,
@@ -61,6 +63,10 @@ export class ReviewComponent extends MeteorComponent {
         // do other things
       });
     });
+
+    this.renderer.listenGlobal('document', 'keydown', (event) => {
+      this.keydown(event);
+    });
   }
 
   keydown(e) {
@@ -78,6 +84,8 @@ export class ReviewComponent extends MeteorComponent {
   } 
 
   ngAfterViewInit() {
+    this.initVideo();
+
     //this.video.nativeElement.onloadstart = this.initCanvas();
     // couldn't get the correct dimensions due to resizing
     // so added a timeout callback
@@ -91,6 +99,23 @@ export class ReviewComponent extends MeteorComponent {
   frame: number = 1;
   fps = 25.0;
 
+  displayReview = 1;
+  emptyCanvas = 1;
+
+  initVideo() {
+    console.log('add seeking function to video');
+
+    this.videoOnSeeking = this.renderer.listen(this.video.nativeElement, 'seeking', (event) => {
+      this.videoSeeking();
+    });
+  }
+
+  videoSeeking() {
+    //console.log('video seeking');
+    this.clearCanvas();
+    this.redrawNewStrokes();
+  }
+
   updateFrame() {
     this.time = this.video.nativeElement.currentTime;
     this.frame = Math.round(this.time * this.fps);  // frame rate of 25 fps
@@ -98,6 +123,84 @@ export class ReviewComponent extends MeteorComponent {
     globalID = requestAnimationFrame(()=> {
       this.updateFrame();
     });
+
+    var idx = this.oldFrames.indexOf(this.frame);
+
+    if (idx > -1) {
+      if (this.displayReview == 1) {
+
+        console.log('draw strokes');
+
+        for (var i = 0; i < this.version.review[idx].strokes.length; i++) {
+
+          var ts = [];
+
+          var length = this.version.review[idx].strokes[i].pts.length-1;
+
+          for (var j = 0; j <= length; j++) {
+            ts.push((1.0/length)*j);
+          }
+
+          console.log(ts);
+
+          var ss = numeric.spline(ts,this.version.review[idx].strokes[i].pts);
+          //this.draw_spline(ss, "F00");
+
+          //var ss2 = this.simplify_spline(ss);
+          this.draw_spline(ss, "#F00");
+        }
+
+        this.displayReview = 0;
+        this.emptyCanvas = 0;
+      }
+    }
+    else {
+      //console.log('reset displayReview back to 1');
+      this.displayReview = 1;
+
+      if (this.emptyCanvas == 0) {
+        this.clearCanvas();
+        this.emptyCanvas = 1;
+      }
+    }
+  }
+
+  goToNextNote() {
+    var lowest = 99999;
+    var seekFrame = -1;
+
+    for (var i = 0; i < this.oldFrames.length; i++) {
+      var diff = this.oldFrames[i] - this.frame;
+      if (diff < lowest && diff > 0) {
+        lowest = diff;
+        seekFrame = this.oldFrames[i];
+      } 
+    }
+
+    if (seekFrame > -1) {
+      this.video.nativeElement.currentTime = seekFrame / 25.0;
+      this.clearCanvas();
+      this.displayReview = 1;
+    }
+  }
+
+  goToPreviousNote() {
+    var highest = -99999;
+    var seekFrame = -1;
+
+    for (var i = 0; i < this.oldFrames.length; i++) {
+      var diff = this.oldFrames[i] - this.frame;
+      if (diff > highest && diff < 0) {
+        highest = diff;
+        seekFrame = this.oldFrames[i];
+      } 
+    }
+
+    if (seekFrame > -1) {
+      this.video.nativeElement.currentTime = seekFrame / 25.0;
+      this.clearCanvas();
+      this.displayReview = 1;
+    }
   }
 
   submitComment() { 
@@ -108,16 +211,42 @@ export class ReviewComponent extends MeteorComponent {
         "comments": [
           {
             "user":"Mike Battcock", 
-            "text":this.comment
+            "text":this.comment,
+            "strokes":this.storedStrokes
           }
         ]
     };
 
+    var idx = -1;
+    
+    for (var i = 0; i < this.review.length; i++) {
+      console.log(this.review[i]);
+
+      if (this.review[i].frame == this.frame) {
+        idx = i;
+        console.log('review found for this frame');
+      }
+    }
+
+    var obj2 = {
+      "user":"Mike Battcock", 
+      "text":this.comment,
+      "strokes":this.xys
+    };
+
+    if (idx > -1) {
+      this.review[idx].comments.push(obj2);
+    }
+    else {
+      this.review.push(obj);
+    }
+
     //console.log(obj);
-    this.comments.push(obj);
+    //this.comments.push(obj);
+    
     this.comment = '';
 
-    console.log(this.comments);
+    console.log(this.review);
   }
 
   playPause() {
@@ -156,6 +285,12 @@ export class ReviewComponent extends MeteorComponent {
   dds = [ 0 ];
 
   storedStrokes = [];
+  newStrokes = [];
+
+  newNotes = [];
+
+  oldFrames = [];
+  newFrames = [];
 
   initCanvas() {
     //console.log(this.canvasEl);
@@ -169,14 +304,22 @@ export class ReviewComponent extends MeteorComponent {
     //this.ctx.strokeStyle = 'hsl(100, 100%, 50%)';
 
     this.canvas.nativeElement.width = this.video.nativeElement.clientWidth;
-    this.canvas.nativeElement.height = this.video.nativeElement.clientHeight;
+    // allow for timeline on video
+    this.canvas.nativeElement.height = this.video.nativeElement.clientHeight - 32;
 
     //this.testRectangle();
     this.video.nativeElement.play();
 
-    if(this.version.hasOwnProperty('reviews')){
-      this.storedStrokes.push(this.version.reviews);
-      this.drawOldStrokes();
+    if(this.version.hasOwnProperty('review')){
+      //this.storedStrokes.push(this.version.notes);
+      //this.drawOldStrokes();
+      console.log('found notes for this version');
+
+      for (var i = 0; i < this.version.review.length; i++) {
+        this.oldFrames.push(this.version.review[i].frame);
+      }
+
+      console.log('found reviews for the following frames: ' + this.oldFrames);
     }
 
     this.updateFrame(); // update video frame
@@ -249,13 +392,65 @@ export class ReviewComponent extends MeteorComponent {
       this.ctx.closePath();
   }
 
+  addNewStroke() {
+    var stroke = {
+      'user': 'Mike Battcock',
+      'width': this.strokeWidth,
+      'col': this.strokeColour,
+      'pts': this.xys
+    }
 
+    var idx = this.newFrames.indexOf(this.frame);
+
+    if (idx > -1) {
+      this.newNotes[idx].strokes.push(stroke);
+    }
+    else {
+      var note = {
+        'frame': this.frame,
+        'comments': [],
+        'strokes': []
+      }
+
+      note.strokes.push(stroke);
+
+      this.newNotes.push(note);
+
+      // add current frame to list
+      this.newFrames.push(this.frame);
+    }
+  }
+
+  redrawNewStrokes() {
+    var idx = this.newFrames.indexOf(this.frame);
+
+    if (idx > -1) {
+      for (var i = 0; i < this.newNotes[idx].strokes.length; i++) {
+
+        var ts = [];
+        var length = this.newNotes[idx].strokes[i].pts.length-1;
+
+        for (var j = 0; j <= length; j++) {
+          ts.push((1.0/length)*j);
+        }
+
+        //console.log(ts);
+
+        var ss = numeric.spline(ts,this.newNotes[idx].strokes[i].pts);
+
+        //this.draw_spline(ss, "F00");
+
+        //var ss2 = this.simplify_spline(ss);
+        this.draw_spline(ss, "#F00");
+      }
+    }
+  }
 
   simplify_spline(spold, tolerance) {
     // Simplifies the source spline by trying to find a smaller set of points
     // which fit within @tolerance.
     
-    var tolerance2 = tolerance ? tolerance * tolerance : 100;
+    var tolerance2 = tolerance ? tolerance * tolerance : 10;
     var subdivide = [ 1./4, 3./8, 1./2, 5./8, 3./4 ];
     var ts = [ 0, 1 ];
     var spnew = numeric.spline(ts, spold.at(ts));
@@ -293,7 +488,7 @@ export class ReviewComponent extends MeteorComponent {
 
     //this.storedStrokes.push(stroke);
 
-    console.log(this.xys);
+    this.addNewStroke();
 
     //this.reviews.push(stroke);
 
@@ -312,13 +507,11 @@ export class ReviewComponent extends MeteorComponent {
     this.ctx.closePath();
   }
 
-  clearCanvasTemp() {
-    this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-  }
-
   clearCanvas() {
     this.ctx.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-    this.storedStrokes.length = 0;
+    this.displayReview = 1;
+    this.emptyCanvas = 1;
+    //this.storedStrokes.length = 0;
   }
 
   onPaint2(e) {
@@ -331,7 +524,7 @@ export class ReviewComponent extends MeteorComponent {
     var dy = ny - this.oy;
     var dd = Math.sqrt(dx*dx + dy*dy);
 
-    if (dd > 20) {
+    if (dd > 5) {
       this.drawSegment(this.ox,this.oy, nx,ny);
       this.xys.push([nx, ny]);
       this.td += dd;
@@ -342,7 +535,9 @@ export class ReviewComponent extends MeteorComponent {
   }
 
   endPaint() {
-    this.mouseMoveFunc();
+    if (this.mouseMoveFunc != null) {
+      this.mouseMoveFunc();
+    }
 
     // need at least two points
     if (this.dds.length > 1) {
@@ -362,9 +557,9 @@ export class ReviewComponent extends MeteorComponent {
 
       this.storedStrokes.push(this.xys);
 
-      this.clearCanvasTemp();
+      this.clearCanvas();
 
-      this.drawOldStrokes();
+      this.redrawNewStrokes();
 
       //var ss2 = this.simplify_spline(ss);
       //this.draw_spline(ss2, "#F00");
@@ -394,7 +589,23 @@ export class ReviewComponent extends MeteorComponent {
 
   saveAnnotation() {
     console.log('save annotation');
-    this._versionService.addAnnotation(this.versionId, this.annotations);
+
+    // loop over new notes
+    // check if there is data from an old session for that frame
+
+
+    for (var i = 0; i < this.newNotes.length; i++) {
+      var idx = this.oldFrames.indexOf(this.newNotes[i].frame);
+
+      //console.log(this.newNotes[i]);
+
+      //var obj = this.newStrokes[i];
+      //delete obj["frame"];
+
+      this._versionService.addFrameNote(this.versionId, this.newNotes[i], idx);
+    }
+
+    //this._versionService.addAnnotation(this.versionId, this.annotations);
   }
 
 }

@@ -52,6 +52,10 @@ export class EntityService extends MeteorComponent{
     var modifier = { $push: {} };
     modifier.$push['tasks.' + taskNum + '.users'] = { "name":userName };
 
+    console.log('entity:');
+    console.log(entityId);
+    console.log(userName);
+
     Entities.update( { "_id": entityId}, modifier );
   }
 

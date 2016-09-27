@@ -100,26 +100,23 @@ export class EntitiesComponent  extends MeteorComponent {
     }
   }
 
-  select(entity,task,assetId,taskId) {
+  select(entity,task,entityId,taskId) {
     console.log(entity);
 
-    var obj = { "id":entity._id, "type":task.type, "name":entity.name, "entityType":entity.type, "assetId":assetId, "taskId":taskId };
+    var obj = { "id":entity._id, 
+                "type":task.type, 
+                "name":entity.name, 
+                "entityType":entity.type, 
+                "entityId":entityId, 
+                "taskId":taskId };
 
     if (this.shiftDown == false) {
 
       if (entity.type == 'asset') {
-        this.assets.forEach((asset) => {
-          asset.tasks.forEach((task) => {
-            task.selected = false;
-          });
-        });
+        this.deselectAssets();
       }
       else {
-        this.shots.forEach((shot) => {
-          shot.tasks.forEach((task) => {
-            task.selected = false;
-          });
-        });
+        this.deselectShots();
       }
 
       task.selected = true;
@@ -185,7 +182,7 @@ export class EntitiesComponent  extends MeteorComponent {
         for (var i = 0; i < this.selected.length; i++) {
           if (this.selected[i].entityType == 'asset') {
             // iterate over selected tasks
-            var assetId = this.selected[i].assetId;
+            var assetId = this.selected[i].entityId;
             var taskId = this.selected[i].taskId;
 
             var found = false;
@@ -212,6 +209,37 @@ export class EntitiesComponent  extends MeteorComponent {
               }
             }
           }
+          else {
+            // iterate over selected tasks
+            var shotId = this.selected[i].entityId;
+            var taskId = this.selected[i].taskId;
+
+            var found = false;
+
+            console.log(this.shots[shotId]);
+
+            var j;
+            for (j = 0; j < this.shots[shotId].tasks[taskId].users.length; j++) {
+               if (this.shots[shotId].tasks[taskId].users[j].name == selUser.name) {
+                found = true;
+                console.log('found: ' + selUser + ' in ' + this.assets[shotId]);
+                break;
+              }
+            }
+
+            if (found == false) {
+              if (event.mode == true) {
+                this.shots[shotId].tasks[taskId].users.push({"name":selUser.name});
+                this._entityService.assignUser(this.shots[shotId]._id, taskId, selUser.name);
+              }
+            }
+            else {
+              if (event.mode == false) {
+                this.shots[shotId].tasks[taskId].users.splice(j,1);
+                this._entityService.unassignUser(this.shots[shotId]._id, taskId, selUser.name);
+              }
+            }
+          }
         }
       });
 
@@ -219,9 +247,40 @@ export class EntitiesComponent  extends MeteorComponent {
     
   }
 
+  deselectAssets() {
+    this.assets.forEach((asset) => {
+        asset.tasks.forEach((task) => {
+          task.selected = false;
+        });
+      });
+  }
+
+  deselectShots() {
+    this.shots.forEach((shot) => {
+      shot.tasks.forEach((task) => {
+        task.selected = false;
+      });
+    });
+  }
+
   showSidebarRight = false;
   toggleSidebarRight(newState) {
     this.showSidebarRight = newState;
+    this.selected.length = 0;
+
+    this.deselectAssets();
+    this.deselectShots();
+  }
+
+  tooltipName = '';
+  left = '0';
+  top = '0';
+  showTooltip(e, str) {
+    this.tooltipName = str;
+
+    console.log(e);
+    this.left = e.clientX - e.offsetX + 'px';
+    this.top = e.clientY - e.offsetY + 'px';
   }
 }
 
